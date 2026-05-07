@@ -2,15 +2,17 @@ import { NextRequest, NextResponse } from 'next/server';
 import type { Role } from '@/types';
 
 // Role-protected route prefixes. Matched with trailing slash to avoid
-// accidentally blocking /seller-setup, /buyer-faq, etc.
 const ROLE_ROUTES: Array<{ prefix: string; role: Role }> = [
   { prefix: '/buyer/', role: 'buyer' },
   { prefix: '/seller/', role: 'seller' },
   { prefix: '/admin/', role: 'admin' },
 ];
 
-const AUTH_ROUTES = ['/login', '/signup', '/seller-setup'];
 
+
+
+
+const AUTH_ROUTES = ['/login', '/signup', '/seller-setup'];
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   const authCookie = req.cookies.get('evyn-role')?.value as Role | undefined;
@@ -20,7 +22,6 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL(`/${authCookie}/dashboard`, req.url));
   }
 
-  // Enforce role-based access on protected prefixes
   for (const { prefix, role } of ROLE_ROUTES) {
     if (pathname === prefix.slice(0, -1) || pathname.startsWith(prefix)) {
       if (!authCookie) {
