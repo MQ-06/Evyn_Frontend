@@ -1,18 +1,43 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { ShoppingCart, Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import { useAuthStore } from '@/stores/auth.store';
 import { clearRoleCookie } from '@/lib/auth';
 import api from '@/lib/api';
 import toast from 'react-hot-toast';
+import { useCart } from '@/hooks/useCart';
+
+function CartIcon() {
+  const { data: cart } = useCart();
+  const count = cart?.items?.reduce((sum, i) => sum + i.quantity, 0) ?? 0;
+
+  return (
+    <Link
+      href="/buyer/cart"
+      className="relative rounded-md px-3 py-1.5 text-sm text-neutral-600 hover:text-neutral-950 hover:bg-neutral-50 transition-colors flex items-center gap-1.5"
+    >
+      <ShoppingCart size={15} strokeWidth={1.75} />
+      Cart
+      {count > 0 && (
+        <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white leading-none">
+          {count > 99 ? '99+' : count}
+        </span>
+      )}
+    </Link>
+  );
+}
 
 export default function Navbar() {
   const router = useRouter();
+  const pathname = usePathname();
   const { user, token, logout } = useAuthStore();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  // sidebar handles sign-out on these routes
+  const inDashboard = /^\/(seller|buyer|admin)/.test(pathname);
 
   async function handleLogout() {
     try {
@@ -34,13 +59,13 @@ export default function Navbar() {
         : '/buyer/dashboard';
 
   return (
-    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-neutral-100">
-      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-5 sm:px-8">
+    <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white">
+      <div className="mx-auto flex h-[60px] max-w-6xl items-center justify-between px-5 sm:px-8">
 
         {/* Logo */}
         <Link
           href="/"
-          className="text-[15px] font-semibold tracking-tight text-neutral-950 select-none"
+          className="text-[16px] font-bold tracking-tight text-neutral-950 select-none"
         >
           Evyn
         </Link>
@@ -64,34 +89,28 @@ export default function Navbar() {
               </Link>
               <Link
                 href="/signup"
-                className="ml-1 rounded-lg bg-neutral-950 px-4 py-1.5 text-sm font-medium text-white hover:bg-neutral-800 transition-colors"
+                className="ml-2 rounded-lg bg-neutral-950 px-4 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-neutral-700 active:scale-[0.98]"
               >
                 Get started
               </Link>
             </>
           ) : (
             <>
-              {user?.role === 'buyer' && (
-                <Link
-                  href="/buyer/cart"
-                  className="rounded-md px-3 py-1.5 text-sm text-neutral-600 hover:text-neutral-950 hover:bg-neutral-50 transition-colors flex items-center gap-1.5"
-                >
-                  <ShoppingCart size={15} strokeWidth={1.75} />
-                  Cart
-                </Link>
-              )}
+              {user?.role === 'buyer' && <CartIcon />}
               <Link
                 href={dashboardPath}
                 className="rounded-md px-3 py-1.5 text-sm text-neutral-600 hover:text-neutral-950 hover:bg-neutral-50 transition-colors"
               >
                 Dashboard
               </Link>
-              <button
-                onClick={handleLogout}
-                className="ml-1 rounded-lg border border-neutral-200 px-3 py-1.5 text-sm text-neutral-600 hover:border-neutral-300 hover:text-neutral-900 transition-colors"
-              >
-                Sign out
-              </button>
+              {!inDashboard && (
+                <button
+                  onClick={handleLogout}
+                  className="ml-1 rounded-lg border border-neutral-200 px-3 py-1.5 text-sm text-neutral-600 hover:border-neutral-300 hover:text-neutral-900 transition-colors"
+                >
+                  Sign out
+                </button>
+              )}
             </>
           )}
         </nav>
@@ -105,6 +124,7 @@ export default function Navbar() {
           {menuOpen ? <X size={18} /> : <Menu size={18} />}
         </button>
       </div>
+
 
       {/* Mobile drawer */}
       {menuOpen && (
@@ -131,7 +151,7 @@ export default function Navbar() {
                 {label}
               </Link>
             ))}
-            {token && (
+            {token && !inDashboard && (
               <button
                 onClick={() => { handleLogout(); setMenuOpen(false); }}
                 className="rounded-md px-2 py-2 text-left text-sm text-neutral-500 hover:bg-neutral-50 transition-colors"
