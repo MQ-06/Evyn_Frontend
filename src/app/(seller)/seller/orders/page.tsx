@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { ShoppingBag, ArrowRight } from 'lucide-react';
+import EmptyState from '@/components/ui/EmptyState';
 import { useSellerOrders } from '@/hooks/useSellerOrders';
 import { formatPrice, formatDate } from '@/lib/auth';
 import { Skeleton } from '@/components/ui/Skeleton';
@@ -26,11 +27,11 @@ export default function SellerOrdersPage() {
           {[1, 2, 3, 4].map((i) => <Skeleton key={i} className="h-16 w-full rounded-2xl" />)}
         </div>
       ) : !orders?.length ? (
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-neutral-200 py-20 text-center">
-          <ShoppingBag size={36} strokeWidth={1.25} className="mb-4 text-neutral-300" />
-          <p className="text-[15px] font-medium text-neutral-500">No orders yet</p>
-          <p className="mt-1 text-[13px] text-neutral-400">Orders from buyers will appear here</p>
-        </div>
+        <EmptyState
+          icon={ShoppingBag}
+          title="No orders yet"
+          description="When buyers purchase your products, their orders will appear here."
+        />
       ) : (
         <div className="overflow-hidden rounded-2xl border border-neutral-100 bg-white">
           {/* Header */}

@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { PlusCircle, Pencil, Trash2, ToggleLeft, ToggleRight, Package } from 'lucide-react';
+import EmptyState from '@/components/ui/EmptyState';
 import toast from 'react-hot-toast';
 import { useSellerProducts, useToggleProduct, useDeleteProduct } from '@/hooks/useSellerProducts';
 import { formatPrice } from '@/lib/auth';
@@ -46,7 +47,7 @@ export default function SellerProductsPage() {
         </div>
         <Link
           href="/seller/products/new"
-          className="flex items-center gap-1.5 rounded-lg bg-neutral-950 px-4 py-2.5 text-[13px] font-medium text-white hover:bg-neutral-800 transition-colors"
+          className="flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-brand-600 to-violet-500 px-4 py-2.5 text-[13px] font-medium text-white shadow-brand-sm transition-all hover:opacity-90 active:scale-[0.98]"
         >
           <PlusCircle size={14} />
           Add product
@@ -58,17 +59,12 @@ export default function SellerProductsPage() {
           {[1, 2, 3].map((i) => <Skeleton key={i} className="h-20 w-full rounded-2xl" />)}
         </div>
       ) : !products?.length ? (
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-neutral-200 py-20 text-center">
-          <Package size={36} strokeWidth={1.25} className="mb-4 text-neutral-300" />
-          <p className="text-[15px] font-medium text-neutral-500">No products yet</p>
-          <p className="mt-1 text-[13px] text-neutral-400">Add your first listing to start selling</p>
-          <Link
-            href="/seller/products/new"
-            className="mt-6 inline-flex items-center gap-1.5 rounded-lg bg-neutral-950 px-5 py-2.5 text-sm font-medium text-white hover:bg-neutral-800 transition-colors"
-          >
-            <PlusCircle size={14} /> Add product
-          </Link>
-        </div>
+        <EmptyState
+          icon={Package}
+          title="No products yet"
+          description="Add your first listing to start selling on Evyn."
+          action={{ label: 'Add product', href: '/seller/products/new' }}
+        />
       ) : (
         <div className="overflow-hidden rounded-2xl border border-neutral-100 bg-white">
           <div className="divide-y divide-neutral-50">

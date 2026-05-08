@@ -11,9 +11,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     const inputId = id ?? label?.toLowerCase().replace(/\s+/g, '-');
 
     return (
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1.5">
         {label && (
-          <label htmlFor={inputId} className="text-sm font-medium text-gray-700">
+          <label htmlFor={inputId} className="text-[13px] font-medium text-neutral-700">
             {label}
           </label>
         )}
@@ -21,16 +21,16 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           id={inputId}
           className={[
-            'h-10 w-full rounded-lg border px-3 text-sm text-gray-900 placeholder-gray-400 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-0',
+            'h-10 w-full rounded-lg border bg-neutral-50 px-3 text-sm text-neutral-900 placeholder-neutral-400 outline-none transition-all focus:bg-white focus:ring-2',
             error
-              ? 'border-red-400 focus:ring-red-400'
-              : 'border-gray-300 focus:border-gray-900',
+              ? 'border-red-400 focus:border-red-400 focus:ring-red-100'
+              : 'border-neutral-200 focus:border-neutral-400 focus:ring-neutral-100',
             className,
           ].join(' ')}
           {...props}
         />
-        {error && <p className="text-xs text-red-500">{error}</p>}
-        {hint && !error && <p className="text-xs text-gray-400">{hint}</p>}
+        {error && <p className="text-[12px] text-red-500">{error}</p>}
+        {hint && !error && <p className="text-[12px] text-neutral-400">{hint}</p>}
       </div>
     );
   }

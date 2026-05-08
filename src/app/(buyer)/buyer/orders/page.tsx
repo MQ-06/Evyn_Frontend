@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { Package, ArrowRight } from 'lucide-react';
+import EmptyState from '@/components/ui/EmptyState';
 import { useOrders } from '@/hooks/useOrders';
 import { formatPrice, formatDate } from '@/lib/auth';
 import OrderStatusBadge from '@/components/shared/OrderStatusBadge';
@@ -19,17 +20,12 @@ export default function OrdersPage() {
           {[1, 2, 3].map((i) => <OrderRowSkeleton key={i} />)}
         </div>
       ) : !orders?.length ? (
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-neutral-200 py-20 text-center">
-          <Package size={36} strokeWidth={1.25} className="mb-4 text-neutral-300" />
-          <p className="text-[15px] font-medium text-neutral-500">No orders yet</p>
-          <p className="mt-1 text-[13px] text-neutral-400">Place your first order to see it here</p>
-          <Link
-            href="/products"
-            className="mt-6 inline-flex items-center gap-1.5 rounded-lg bg-neutral-950 px-5 py-2.5 text-sm font-medium text-white hover:bg-neutral-800 transition-colors"
-          >
-            Browse products <ArrowRight size={14} />
-          </Link>
-        </div>
+        <EmptyState
+          icon={Package}
+          title="No orders yet"
+          description="Browse our marketplace and place your first order."
+          action={{ label: 'Browse products', href: '/products' }}
+        />
       ) : (
         <div className="overflow-hidden rounded-2xl border border-neutral-100 bg-white">
           {/* Table header */}
