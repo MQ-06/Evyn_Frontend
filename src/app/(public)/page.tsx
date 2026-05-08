@@ -126,50 +126,50 @@ export default function HomePage() {
     <div className="overflow-x-hidden">
 
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
-      <section className="relative flex flex-col items-center px-5 pb-24 pt-20 text-center sm:pt-28 sm:pb-32">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 h-[480px] bg-gradient-to-b from-neutral-50 to-transparent"
-        />
+      <section className="bg-neutral-950 px-5 pb-20 pt-24 sm:px-8 sm:pb-28 sm:pt-32">
+        <div className="mx-auto max-w-6xl">
 
-        <div className="relative mb-6 inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-3.5 py-1 shadow-sm">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-          <span className="text-[13px] font-medium text-neutral-600">Multi-vendor marketplace</span>
-        </div>
+          <p className="mb-7 text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-500">
+            Multi-vendor marketplace
+          </p>
 
-        <h1 className="relative max-w-3xl text-balance text-[2.75rem] font-bold leading-[1.07] tracking-[-0.03em] text-neutral-950 sm:text-[3.75rem] lg:text-[4.5rem]">
-          Where independent sellers{' '}
-          <span className="text-neutral-400">meet their customers.</span>
-        </h1>
+          <h1 className="max-w-2xl text-[2.75rem] font-bold leading-[1.06] tracking-[-0.03em] text-white sm:text-[3.5rem] lg:text-[4.25rem]">
+            The marketplace built for independent sellers.
+          </h1>
 
-        <p className="relative mt-6 max-w-lg text-base leading-relaxed text-neutral-500 sm:text-lg">
-          Evyn is a curated marketplace built for verified sellers and discerning buyers.
-          Browse, buy, and track — all in one clean experience.
-        </p>
+          <p className="mt-7 max-w-md text-[16px] leading-relaxed text-neutral-400">
+            Evyn connects verified sellers with buyers who care about quality. Browse, buy, and track every order — all in one place.
+          </p>
 
-        <div className="relative mt-9 flex flex-wrap items-center justify-center gap-3">
-          <Link
-            href="/products"
-            className="group inline-flex items-center gap-2 rounded-lg bg-neutral-950 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-neutral-800"
-          >
-            Browse products
-            <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
-          </Link>
-          <Link
-            href="/signup"
-            className="inline-flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-5 py-2.5 text-sm font-medium text-neutral-700 transition-colors hover:border-neutral-300 hover:bg-neutral-50"
-          >
-            Create account
-          </Link>
-        </div>
+          <div className="mt-10 flex flex-wrap gap-3">
+            <Link
+              href="/products"
+              className="group inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-semibold text-neutral-950 transition-colors hover:bg-neutral-100 active:scale-[0.98]"
+            >
+              Browse products
+              <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
+            </Link>
+            <Link
+              href="/signup"
+              className="inline-flex items-center rounded-lg border border-neutral-700 px-6 py-3 text-sm font-medium text-neutral-300 transition-colors hover:border-neutral-500 hover:text-white"
+            >
+              Create account
+            </Link>
+          </div>
 
-        <div className="relative mt-14 flex flex-wrap justify-center gap-x-10 gap-y-3">
-          {['No unverified sellers', 'Free shipping over $50', 'Price history on every order'].map((t) => (
-            <span key={t} className="flex items-center gap-2 text-[13px] text-neutral-400">
-              <span className="h-px w-4 bg-neutral-300" />
-              {t}
-            </span>
-          ))}
+          <div className="mt-16 flex flex-wrap gap-10 border-t border-neutral-800 pt-8">
+            {[
+              { n: '2,400+', label: 'Products listed' },
+              { n: '180+',   label: 'Verified sellers' },
+              { n: '5,000+', label: 'Orders fulfilled' },
+            ].map(({ n, label }) => (
+              <div key={label}>
+                <p className="text-[2rem] font-bold tracking-tight text-white">{n}</p>
+                <p className="mt-0.5 text-[13px] text-neutral-500">{label}</p>
+              </div>
+            ))}
+          </div>
+
         </div>
       </section>
 
@@ -200,7 +200,7 @@ export default function HomePage() {
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {features.map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="group rounded-xl border border-neutral-200 bg-white p-6 transition-shadow hover:shadow-md">
+              <div key={title} className="rounded-xl border border-neutral-200 bg-white p-6 transition-shadow hover:shadow-md">
                 <div className="mb-4 inline-flex rounded-lg border border-neutral-100 bg-neutral-50 p-2.5">
                   <Icon size={18} strokeWidth={1.75} className="text-neutral-700" />
                 </div>
@@ -215,41 +215,57 @@ export default function HomePage() {
       {/* ── How it works ──────────────────────────────────────────────────── */}
       <section className="px-5 py-20 sm:px-8 sm:py-24">
         <div className="mx-auto max-w-6xl">
-          <div className="mb-14 text-center">
-            <p className="mb-3 text-[13px] font-semibold uppercase tracking-widest text-neutral-400">For buyers</p>
+
+          <div className="mb-12 flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
             <h2 className="text-[1.75rem] font-bold tracking-[-0.02em] text-neutral-950 sm:text-3xl">
-              From signup to delivered in minutes
+              Up and running in minutes.
             </h2>
+            <p className="text-[13px] text-neutral-400 sm:text-right">Three steps. No friction.</p>
           </div>
-          <div className="grid gap-6 sm:grid-cols-3">
+
+          <div className="divide-y divide-neutral-100">
             {steps.map(({ n, title, desc }) => (
-              <div key={n} className="flex flex-col gap-4 rounded-xl border border-neutral-100 p-7">
-                <span className="font-mono text-[13px] font-medium text-neutral-300">{n}</span>
-                <div>
-                  <h3 className="mb-1.5 text-[15px] font-semibold text-neutral-950">{title}</h3>
-                  <p className="text-sm leading-relaxed text-neutral-500">{desc}</p>
+              <div
+                key={n}
+                className="group flex flex-col gap-3 py-8 sm:flex-row sm:items-start sm:gap-12"
+              >
+                <span className="shrink-0 font-mono text-[3rem] font-bold leading-none tracking-tighter text-neutral-100 transition-colors group-hover:text-neutral-200 sm:w-24 sm:text-right">
+                  {n}
+                </span>
+                <div className="flex-1 pt-1">
+                  <h3 className="text-[18px] font-semibold text-neutral-950">{title}</h3>
+                  <p className="mt-2 max-w-md text-[14px] leading-relaxed text-neutral-500">{desc}</p>
                 </div>
               </div>
             ))}
           </div>
+
         </div>
       </section>
 
       {/* ── Bottom CTA ────────────────────────────────────────────────────── */}
-      <section className="px-5 pb-20 sm:px-8 sm:pb-28">
+      <section className="border-t border-neutral-100 bg-neutral-50 px-5 py-20 sm:px-8 sm:py-24">
         <div className="mx-auto max-w-6xl">
-          <div className="flex flex-col items-center rounded-2xl bg-neutral-950 px-8 py-16 text-center">
-            <h2 className="max-w-md text-[1.75rem] font-bold tracking-[-0.02em] text-white sm:text-3xl">
-              Ready to start shopping?
-            </h2>
-            <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-neutral-400">
-              Join thousands of buyers discovering unique products from independent sellers.
-            </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <Link href="/signup" className="rounded-lg bg-white px-5 py-2.5 text-sm font-medium text-neutral-950 transition-colors hover:bg-neutral-100">
+          <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h2 className="text-[1.5rem] font-bold tracking-[-0.02em] text-neutral-950">
+                Ready to start shopping?
+              </h2>
+              <p className="mt-2 max-w-sm text-[14px] leading-relaxed text-neutral-500">
+                Join thousands of buyers discovering unique products from verified independent sellers.
+              </p>
+            </div>
+            <div className="flex shrink-0 flex-wrap gap-3">
+              <Link
+                href="/signup"
+                className="rounded-lg bg-neutral-950 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-neutral-800 active:scale-[0.98]"
+              >
                 Create free account
               </Link>
-              <Link href="/products" className="rounded-lg border border-neutral-700 px-5 py-2.5 text-sm font-medium text-neutral-300 transition-colors hover:border-neutral-500 hover:text-white">
+              <Link
+                href="/products"
+                className="rounded-lg border border-neutral-200 bg-white px-5 py-2.5 text-sm font-medium text-neutral-600 transition-colors hover:border-neutral-300 hover:text-neutral-950"
+              >
                 Browse products
               </Link>
             </div>
