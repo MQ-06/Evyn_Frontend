@@ -22,6 +22,9 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
+const inputClass =
+  'h-10 w-full rounded-lg border border-neutral-200 bg-neutral-50 px-3 text-sm text-neutral-900 placeholder-neutral-400 outline-none transition-all focus:border-neutral-400 focus:bg-white focus:ring-2 focus:ring-neutral-100';
+
 export default function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -50,10 +53,9 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="rounded-2xl border border-neutral-200 bg-white px-8 py-10 shadow-sm">
-      {/* Header */}
+    <>
       <div className="mb-8">
-        <h1 className="text-[1.375rem] font-bold tracking-tight text-neutral-950">
+        <h1 className="text-[1.5rem] font-bold tracking-tight text-neutral-950">
           Sign in
         </h1>
         <p className="mt-1.5 text-[14px] text-neutral-500">
@@ -61,9 +63,7 @@ export default function LoginForm() {
         </p>
       </div>
 
-      {/* Form */}
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="flex flex-col gap-5">
-        {/* Email */}
         <div className="flex flex-col gap-1.5">
           <label htmlFor="email" className="text-[13px] font-medium text-neutral-700">
             Email
@@ -74,14 +74,13 @@ export default function LoginForm() {
             autoComplete="email"
             placeholder="you@example.com"
             {...register('email')}
-            className="h-10 w-full rounded-lg border border-neutral-200 bg-white px-3 text-sm text-neutral-900 placeholder-neutral-400 outline-none transition-colors focus:border-neutral-400 focus:ring-2 focus:ring-neutral-200"
+            className={inputClass}
           />
           {errors.email && (
             <p className="text-[12px] text-red-500">{errors.email.message}</p>
           )}
         </div>
 
-        {/* Password */}
         <div className="flex flex-col gap-1.5">
           <label htmlFor="password" className="text-[13px] font-medium text-neutral-700">
             Password
@@ -93,7 +92,7 @@ export default function LoginForm() {
               autoComplete="current-password"
               placeholder="••••••••"
               {...register('password')}
-              className="h-10 w-full rounded-lg border border-neutral-200 bg-white px-3 pr-10 text-sm text-neutral-900 placeholder-neutral-400 outline-none transition-colors focus:border-neutral-400 focus:ring-2 focus:ring-neutral-200"
+              className={`${inputClass} pr-10`}
             />
             <button
               type="button"
@@ -109,11 +108,10 @@ export default function LoginForm() {
           )}
         </div>
 
-        {/* Submit */}
         <button
           type="submit"
           disabled={isSubmitting}
-          className="mt-1 flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-neutral-950 text-sm font-medium text-white transition-colors hover:bg-neutral-800 disabled:cursor-not-allowed disabled:bg-neutral-300"
+          className="mt-1 flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-neutral-950 text-sm font-semibold text-white transition-colors hover:bg-neutral-700 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40"
         >
           {isSubmitting ? (
             <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
@@ -123,16 +121,12 @@ export default function LoginForm() {
         </button>
       </form>
 
-      {/* Footer link */}
       <p className="mt-6 text-center text-[13px] text-neutral-500">
         Don&apos;t have an account?{' '}
-        <Link
-          href="/signup"
-          className="font-medium text-neutral-950 underline-offset-2 hover:underline"
-        >
+        <Link href="/signup" className="font-medium text-brand-600 hover:text-brand-700 underline-offset-2 hover:underline">
           Sign up
         </Link>
       </p>
-    </div>
+    </>
   );
 }

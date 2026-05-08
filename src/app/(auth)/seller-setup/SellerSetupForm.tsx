@@ -26,6 +26,9 @@ const schema = z
 
 type FormValues = z.infer<typeof schema>;
 
+const inputClass =
+  'h-10 w-full rounded-lg border border-neutral-200 bg-neutral-50 px-3 pr-10 text-sm text-neutral-900 placeholder-neutral-400 outline-none transition-all focus:border-neutral-400 focus:bg-white focus:ring-2 focus:ring-neutral-100';
+
 export default function SellerSetupForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -41,7 +44,6 @@ export default function SellerSetupForm() {
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({ resolver: zodResolver(schema) });
 
-  // If no token in URL, redirect immediately
   useEffect(() => {
     if (!token) {
       toast.error('Invalid or missing invite link.');
@@ -67,15 +69,14 @@ export default function SellerSetupForm() {
   if (!token) return null;
 
   return (
-    <div className="rounded-2xl border border-neutral-200 bg-white px-8 py-10 shadow-sm">
-      {/* Header */}
+    <>
       <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1">
         <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
         <span className="text-[12px] font-medium text-emerald-700">Seller invite</span>
       </div>
 
       <div className="mb-8 mt-4">
-        <h1 className="text-[1.375rem] font-bold tracking-tight text-neutral-950">
+        <h1 className="text-[1.5rem] font-bold tracking-tight text-neutral-950">
           Activate your account
         </h1>
         <p className="mt-1.5 text-[14px] text-neutral-500">
@@ -83,7 +84,6 @@ export default function SellerSetupForm() {
         </p>
       </div>
 
-      {/* Token notice */}
       <div className="mb-6 flex items-start gap-2.5 rounded-lg border border-amber-200 bg-amber-50 px-3.5 py-3">
         <AlertCircle size={15} className="mt-0.5 shrink-0 text-amber-600" />
         <p className="text-[13px] leading-relaxed text-amber-700">
@@ -91,9 +91,7 @@ export default function SellerSetupForm() {
         </p>
       </div>
 
-      {/* Form */}
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="flex flex-col gap-5">
-        {/* Password */}
         <div className="flex flex-col gap-1.5">
           <label htmlFor="password" className="text-[13px] font-medium text-neutral-700">
             Password
@@ -105,7 +103,7 @@ export default function SellerSetupForm() {
               autoComplete="new-password"
               placeholder="Min. 8 characters"
               {...register('password')}
-              className="h-10 w-full rounded-lg border border-neutral-200 bg-white px-3 pr-10 text-sm text-neutral-900 placeholder-neutral-400 outline-none transition-colors focus:border-neutral-400 focus:ring-2 focus:ring-neutral-200"
+              className={inputClass}
             />
             <button
               type="button"
@@ -121,7 +119,6 @@ export default function SellerSetupForm() {
           )}
         </div>
 
-        {/* Confirm password */}
         <div className="flex flex-col gap-1.5">
           <label htmlFor="confirmPassword" className="text-[13px] font-medium text-neutral-700">
             Confirm password
@@ -133,7 +130,7 @@ export default function SellerSetupForm() {
               autoComplete="new-password"
               placeholder="Repeat your password"
               {...register('confirmPassword')}
-              className="h-10 w-full rounded-lg border border-neutral-200 bg-white px-3 pr-10 text-sm text-neutral-900 placeholder-neutral-400 outline-none transition-colors focus:border-neutral-400 focus:ring-2 focus:ring-neutral-200"
+              className={inputClass}
             />
             <button
               type="button"
@@ -149,11 +146,10 @@ export default function SellerSetupForm() {
           )}
         </div>
 
-        {/* Submit */}
         <button
           type="submit"
           disabled={isSubmitting}
-          className="mt-1 flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-neutral-950 text-sm font-medium text-white transition-colors hover:bg-neutral-800 disabled:cursor-not-allowed disabled:bg-neutral-300"
+          className="mt-1 flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-neutral-950 text-sm font-semibold text-white transition-colors hover:bg-neutral-700 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40"
         >
           {isSubmitting ? (
             <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
@@ -162,6 +158,6 @@ export default function SellerSetupForm() {
           )}
         </button>
       </form>
-    </div>
+    </>
   );
 }
