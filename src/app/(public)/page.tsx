@@ -59,8 +59,8 @@ async function FeaturedProducts() {
   const toArray = <T,>(v: unknown): T[] => (Array.isArray(v) ? (v as T[]) : []);
 
   const [rawProducts, rawCategories] = await Promise.all([
-    serverFetch<{ items: Product[] }>('/products?sort=newest&limit=8').catch(() => ({ items: [] })),
-    serverFetch<unknown>('/categories').catch(() => []),
+    serverFetch<{ items: Product[] }>('/products?sort=newest&limit=8', { revalidate: 0 }).catch(() => ({ items: [] })),
+    serverFetch<unknown>('/categories', { revalidate: 0 }).catch(() => []),
   ]);
 
   const products = toArray<Product>(rawProducts?.items);

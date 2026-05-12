@@ -36,9 +36,10 @@ export default async function ProductsPage({ searchParams }: PageProps) {
         sort: searchParams.sort ?? 'newest',
         page,
         limit: LIMIT,
-      })}`
+      })}`,
+      { revalidate: 0 }
     ).catch(() => ({ items: [], totalPages: 1 })),
-    serverFetch<unknown>('/categories').catch(() => []),
+    serverFetch<unknown>('/categories', { revalidate: 0 }).catch(() => []),
   ]);
 
   const products = toArray<Product>(rawProducts?.items);
