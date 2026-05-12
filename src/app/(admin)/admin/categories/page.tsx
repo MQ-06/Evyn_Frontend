@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Tag, Trash2, Plus } from 'lucide-react';
+import { Tag, Plus } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@/lib/api';

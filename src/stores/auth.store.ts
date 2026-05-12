@@ -26,7 +26,6 @@ export const useAuthStore = create<AuthState>()(
     }),
     {
       name: 'evyn-auth',
-      // only persist token and user — nothing sensitive beyond what's needed
       partialize: (state) => ({ token: state.token, user: state.user }),
     }
   )

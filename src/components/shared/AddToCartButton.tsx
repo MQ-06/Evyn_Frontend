@@ -1,41 +1,49 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { ShoppingCart, Check } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuthStore } from '@/stores/auth.store';
+import { useGuestCartStore } from '@/stores/guest-cart.store';
 import api from '@/lib/api';
 import { getApiError } from '@/lib/utils';
+import type { Product } from '@/types';
 
 interface AddToCartButtonProps {
-  productId: string;
-  stock: number;
+  product: Product;
 }
 
-export default function AddToCartButton({ productId, stock }: AddToCartButtonProps) {
-  const router = useRouter();
-  const user = useAuthStore((s) => s.user);
-  const token = useAuthStore((s) => s.token);
+export default function AddToCartButton({ product }: AddToCartButtonProps) {
+  const { user, token } = useAuthStore();
+  const addGuestItem = useGuestCartStore((s) => s.addItem);
   const [loading, setLoading] = useState(false);
   const [added, setAdded] = useState(false);
 
-  const outOfStock = stock === 0;
+  const outOfStock = product.stock === 0;
 
-  // Non-buyers see nothing — sellers/admins don't shop
+  // Sellers and admins don't shop
   if (token && user?.role !== 'buyer') return null;
 
+  function showAdded() {
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2500);
+  }
+
   async function handleAdd() {
+    // Not logged in → add to guest cart (localStorage)
     if (!token) {
-      router.push(`/login?next=/products`);
+      addGuestItem(product, 1);
+      toast.success('Added to cart');
+      showAdded();
       return;
     }
+
+    // Logged-in buyer → add to server cart
     setLoading(true);
     try {
-      await api.post('/cart', { productId, quantity: 1 });
-      setAdded(true);
+      await api.post('/cart', { productId: product.id, quantity: 1 });
       toast.success('Added to cart');
-      setTimeout(() => setAdded(false), 2500);
+      showAdded();
     } catch (err) {
       toast.error(getApiError(err));
     } finally {
@@ -52,17 +60,11 @@ export default function AddToCartButton({ productId, stock }: AddToCartButtonPro
       {loading ? (
         <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
       ) : added ? (
-        <>
-          <Check size={15} />
-          Added to cart
-        </>
+        <><Check size={15} /> Added to cart</>
       ) : outOfStock ? (
         'Out of stock'
       ) : (
-        <>
-          <ShoppingCart size={15} />
-          {token ? 'Add to cart' : 'Sign in to buy'}
-        </>
+        <><ShoppingCart size={15} /> Add to cart</>
       )}
     </button>
   );

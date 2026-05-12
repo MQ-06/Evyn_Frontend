@@ -36,7 +36,6 @@ export default function SellerSidebar() {
     <aside className="hidden w-52 shrink-0 md:block">
       <div className="sticky top-24 flex flex-col">
 
-        {/* User info */}
         {user && (
           <div className="mb-5 rounded-xl border border-neutral-200 bg-white p-4">
             <div className="flex items-center gap-3">

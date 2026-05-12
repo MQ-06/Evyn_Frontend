@@ -1,9 +1,5 @@
 const BASE = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000';
 
-/**
- * Fetch wrapper for server components — no auth header needed for public endpoints.
- * Uses Next.js fetch with ISR revalidation.
- */
 export async function serverFetch<T>(
   path: string,
   options?: { revalidate?: number | false }

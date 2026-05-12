@@ -115,7 +115,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
           {/* Add to cart */}
           <div className="mt-7">
-            <AddToCartButton productId={product.id} stock={product.stock} />
+            <AddToCartButton product={product} />
           </div>
 
           {/* Divider */}

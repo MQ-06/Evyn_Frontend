@@ -4,14 +4,14 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@/lib/api';
 import type { Cart } from '@/types';
 
-export function useCart() {
+export function useCart({ enabled = true }: { enabled?: boolean } = {}) {
   return useQuery({
     queryKey: ['cart'],
     queryFn: async () => {
       const { data } = await api.get<Cart>('/cart');
       return data;
     },
-    staleTime: 30_000,
+    enabled,
   });
 }
 

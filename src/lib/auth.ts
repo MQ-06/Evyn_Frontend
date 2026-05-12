@@ -4,7 +4,6 @@ import type { AuthUser, Role } from '@/types';
 const ROLE_COOKIE = 'evyn-role';
 
 export function setRoleCookie(role: Role) {
-  // 7 days — matches refresh token lifetime
   Cookies.set(ROLE_COOKIE, role, { expires: 7, sameSite: 'lax' });
 }
 

@@ -5,18 +5,28 @@ import { useRouter, usePathname } from 'next/navigation';
 import { ShoppingCart, Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import { useAuthStore } from '@/stores/auth.store';
+import { useGuestCartStore } from '@/stores/guest-cart.store';
 import { clearRoleCookie } from '@/lib/auth';
 import api from '@/lib/api';
 import toast from 'react-hot-toast';
 import { useCart } from '@/hooks/useCart';
 
 function CartIcon() {
-  const { data: cart } = useCart();
-  const count = cart?.items?.reduce((sum, i) => sum + i.quantity, 0) ?? 0;
+  const { token, user } = useAuthStore();
+  const isBuyer = !!token && user?.role === 'buyer';
+  const { data: serverCart } = useCart({ enabled: isBuyer });
+  const guestItems = useGuestCartStore((s) => s.items);
+
+  const count = isBuyer
+    ? (serverCart?.items?.reduce((sum, i) => sum + i.quantity, 0) ?? 0)
+    : guestItems.reduce((sum, i) => sum + i.quantity, 0);
+
+  // Sellers and admins don't see cart
+  if (token && user?.role !== 'buyer') return null;
 
   return (
     <Link
-      href="/buyer/cart"
+      href="/cart"
       className="relative rounded-md px-3 py-1.5 text-sm text-neutral-600 hover:text-neutral-950 hover:bg-neutral-50 transition-colors flex items-center gap-1.5"
     >
       <ShoppingCart size={15} strokeWidth={1.75} />
@@ -81,6 +91,7 @@ export default function Navbar() {
 
           {!token ? (
             <>
+              <CartIcon />
               <Link
                 href="/login"
                 className="rounded-md px-3 py-1.5 text-sm text-neutral-600 hover:text-neutral-950 hover:bg-neutral-50 transition-colors"
@@ -96,7 +107,7 @@ export default function Navbar() {
             </>
           ) : (
             <>
-              {user?.role === 'buyer' && <CartIcon />}
+              <CartIcon />
               <Link
                 href={dashboardPath}
                 className="rounded-md px-3 py-1.5 text-sm text-neutral-600 hover:text-neutral-950 hover:bg-neutral-50 transition-colors"
@@ -134,11 +145,12 @@ export default function Navbar() {
               { href: '/products', label: 'Products' },
               ...(!token
                 ? [
-                    { href: '/login', label: 'Sign in' },
+                    { href: '/cart',   label: 'Cart' },
+                    { href: '/login',  label: 'Sign in' },
                     { href: '/signup', label: 'Get started' },
                   ]
                 : [
-                    ...(user?.role === 'buyer' ? [{ href: '/buyer/cart', label: 'Cart' }] : []),
+                    ...(user?.role === 'buyer' ? [{ href: '/cart', label: 'Cart' }] : []),
                     { href: dashboardPath, label: 'Dashboard' },
                   ]),
             ].map(({ href, label }) => (
