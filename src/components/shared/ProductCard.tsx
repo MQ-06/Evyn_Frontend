@@ -15,7 +15,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <Link
       href={`/products/${product.slug}`}
-      className="group flex flex-col overflow-hidden rounded-2xl border border-neutral-100 bg-white transition-all duration-200 hover:border-brand-200 hover:shadow-[0_0_0_2px_#7c3aed20] hover:shadow-md"
+      className="group flex flex-col overflow-hidden rounded-2xl border border-neutral-100 bg-white transition-all duration-200 hover:border-neutral-300 hover:shadow-md"
     >
       {/* Image */}
       <div className="relative aspect-[4/3] overflow-hidden bg-neutral-50">
@@ -62,7 +62,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         )}
 
         <div className="mt-auto flex items-end justify-between pt-3">
-          <span className="text-[17px] font-bold tracking-tight text-brand-600">
+          <span className="text-[17px] font-bold tracking-tight text-neutral-950">
             {formatPrice(product.price)}
           </span>
           {inStock && product.stock <= 10 && (

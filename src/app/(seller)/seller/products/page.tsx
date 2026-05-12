@@ -47,7 +47,7 @@ export default function SellerProductsPage() {
         </div>
         <Link
           href="/seller/products/new"
-          className="flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-brand-600 to-violet-500 px-4 py-2.5 text-[13px] font-medium text-white shadow-brand-sm transition-all hover:opacity-90 active:scale-[0.98]"
+          className="flex items-center gap-1.5 rounded-lg bg-neutral-950 px-4 py-2.5 text-[13px] font-medium text-white transition-colors hover:bg-neutral-800 active:scale-[0.98]"
         >
           <PlusCircle size={14} />
           Add product
