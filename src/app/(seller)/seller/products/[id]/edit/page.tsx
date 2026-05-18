@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
@@ -13,6 +13,7 @@ import type { Category, Product } from '@/types';
 export default function EditProductPage({ params }: { params: { id: string } }) {
   const { id } = params;
   const router = useRouter();
+  const qc = useQueryClient();
 
   const { data: product, isLoading: loadingProduct } = useQuery({
     queryKey: ['seller-product', id],
@@ -34,6 +35,8 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
   async function handleSubmit(values: ProductFormValues, images: string[]) {
     try {
       await api.patch(`/seller/products/${id}`, { ...values, images });
+      qc.invalidateQueries({ queryKey: ['seller-products'] });
+      qc.invalidateQueries({ queryKey: ['seller-product', id] });
       toast.success('Product updated');
       router.push('/seller/products');
     } catch (err) {

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { ShoppingCart, Check } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { useQueryClient } from '@tanstack/react-query';
 import { useAuthStore } from '@/stores/auth.store';
 import { useGuestCartStore } from '@/stores/guest-cart.store';
 import api from '@/lib/api';
@@ -16,6 +17,7 @@ interface AddToCartButtonProps {
 export default function AddToCartButton({ product }: AddToCartButtonProps) {
   const { user, token } = useAuthStore();
   const addGuestItem = useGuestCartStore((s) => s.addItem);
+  const qc = useQueryClient();
   const [loading, setLoading] = useState(false);
   const [added, setAdded] = useState(false);
 
@@ -42,6 +44,7 @@ export default function AddToCartButton({ product }: AddToCartButtonProps) {
     setLoading(true);
     try {
       await api.post('/cart', { productId: product.id, quantity: 1 });
+      qc.invalidateQueries({ queryKey: ['cart'] });
       toast.success('Added to cart');
       showAdded();
     } catch (err) {

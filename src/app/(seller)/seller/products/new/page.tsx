@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import api from '@/lib/api';
 import { getApiError } from '@/lib/utils';
 import ProductForm, { type ProductFormValues } from '../ProductForm';
@@ -12,6 +12,7 @@ import type { Category } from '@/types';
 
 export default function NewProductPage() {
   const router = useRouter();
+  const qc = useQueryClient();
 
   const { data: categories = [], isLoading } = useQuery({
     queryKey: ['categories'],
@@ -24,6 +25,7 @@ export default function NewProductPage() {
   async function handleSubmit(values: ProductFormValues, images: string[]) {
     try {
       await api.post('/seller/products', { ...values, images });
+      qc.invalidateQueries({ queryKey: ['seller-products'] });
       toast.success('Product created');
       router.push('/seller/products');
     } catch (err) {
