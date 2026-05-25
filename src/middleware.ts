@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import type { Role } from '@/types';
+import type { RoleType } from '@/types';
 
-// Role-protected route prefixes. Matched with trailing slash to avoid
-const ROLE_ROUTES: Array<{ prefix: string; role: Role }> = [
+// RoleType-protected route prefixes. Matched with trailing slash to avoid
+const ROLE_ROUTES: Array<{ prefix: string; role: RoleType }> = [
   { prefix: '/buyer/', role: 'buyer' },
   { prefix: '/seller/', role: 'seller' },
   { prefix: '/admin/', role: 'admin' },
@@ -15,7 +15,7 @@ const ROLE_ROUTES: Array<{ prefix: string; role: Role }> = [
 const AUTH_ROUTES = ['/login', '/signup', '/seller-setup'];
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  const authCookie = req.cookies.get('evyn-role')?.value as Role | undefined;
+  const authCookie = req.cookies.get('evyn-role')?.value as RoleType | undefined;
 
   // Redirect already-logged-in users away from auth pages
   if (authCookie && AUTH_ROUTES.some((r) => pathname.startsWith(r))) {

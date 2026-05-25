@@ -2,7 +2,7 @@
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@/lib/api';
-import type { Order, OrderStatus } from '@/types';
+import type { Order, OrderStatusType } from '@/types';
 
 export function useSellerOrders() {
   return useQuery({
@@ -25,10 +25,10 @@ export function useSellerOrder(id: string) {
   });
 }
 
-export function useUpdateOrderStatus() {
+export function useUpdateOrderStatusType() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: ({ id, status, trackingNote }: { id: string; status: OrderStatus; trackingNote?: string }) =>
+    mutationFn: ({ id, status, trackingNote }: { id: string; status: OrderStatusType; trackingNote?: string }) =>
       api.patch<Order>(`/seller/orders/${id}/status`, { status, trackingNote }),
     onSuccess: (_, { id }) => {
       qc.invalidateQueries({ queryKey: ['seller-orders'] });

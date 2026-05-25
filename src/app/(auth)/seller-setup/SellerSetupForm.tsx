@@ -12,7 +12,7 @@ import api from '@/lib/api';
 import { getApiError } from '@/lib/utils';
 import { setRoleCookie } from '@/lib/auth';
 import { useAuthStore } from '@/stores/auth.store';
-import type { AuthResponse } from '@/types';
+import type { LoginResponse } from '@/types';
 
 const schema = z
   .object({
@@ -53,7 +53,7 @@ export default function SellerSetupForm() {
 
   async function onSubmit(values: FormValues) {
     try {
-      const { data } = await api.post<AuthResponse>('/auth/seller-setup', {
+      const { data } = await api.post<LoginResponse>('/auth/seller-setup', {
         token,
         password: values.password,
       });

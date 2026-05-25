@@ -1,8 +1,8 @@
 // ─── Enums ────────────────────────────────────────────────────────────────────
 
-export type Role = 'admin' | 'seller' | 'buyer';
+export type RoleType = 'admin' | 'seller' | 'buyer';
 
-export type OrderStatus =
+export type OrderStatusType =
   | 'pending'
   | 'confirmed'
   | 'shipped'
@@ -15,13 +15,13 @@ export interface AuthUser {
   id: string;
   name: string;
   email: string;
-  role: Role;
+  role: RoleType;
   phone: string | null;
   businessName: string | null;
   isActive: boolean;
 }
 
-export interface AuthResponse {
+export interface LoginResponse {
   access_token: string;
   user: AuthUser;
 }
@@ -107,7 +107,7 @@ export interface OrderItem {
 export interface Order {
   id: string;
   buyerId: string | null;
-  status: OrderStatus;
+  status: OrderStatusType;
   subtotal: number;
   shippingCost: number;
   total: number;
@@ -120,7 +120,7 @@ export interface Order {
 
 // ─── Admin ────────────────────────────────────────────────────────────────────
 
-export interface SellerWithStats extends AuthUser {
+export interface SellerProfile extends AuthUser {
   _count?: { products: number };
 }
 

@@ -21,11 +21,11 @@ const dateLabel = new Date().toLocaleDateString('en-US', {
 
 export default function BuyerDashboardPage() {
   const user = useAuthStore((s) => s.user);
-  const { data: cart } = useCart();
+  const { data: cartData } = useCart();
   const { data: orders } = useOrders();
 
   const firstName = user?.name?.split(' ')[0] ?? 'there';
-  const cartCount = cart?.items?.reduce((s, i) => s + i.quantity, 0) ?? 0;
+  const cartCount = cartData?.items?.reduce((s, i) => s + i.quantity, 0) ?? 0;
   const orderCount = orders?.length ?? 0;
   const recentOrders = orders?.slice(0, 5) ?? [];
 

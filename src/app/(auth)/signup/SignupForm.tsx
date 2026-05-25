@@ -13,7 +13,7 @@ import api from '@/lib/api';
 import { getApiError } from '@/lib/utils';
 import { setRoleCookie } from '@/lib/auth';
 import { useAuthStore } from '@/stores/auth.store';
-import type { AuthResponse } from '@/types';
+import type { LoginResponse } from '@/types';
 
 const schema = z.object({
   name: z
@@ -44,7 +44,7 @@ export default function SignupForm() {
   async function onSubmit(values: FormValues) {
     const payload = { ...values, phone: values.phone?.trim() || undefined };
     try {
-      const { data } = await api.post<AuthResponse>('/auth/signup', payload);
+      const { data } = await api.post<LoginResponse>('/auth/signup', payload);
       setAuth(data.access_token, data.user);
       setRoleCookie(data.user.role);
       toast.success('Account created! Welcome to Evyn.');

@@ -13,7 +13,7 @@ import api from '@/lib/api';
 import { getApiError } from '@/lib/utils';
 import { setRoleCookie } from '@/lib/auth';
 import { useAuthStore } from '@/stores/auth.store';
-import type { AuthResponse } from '@/types';
+import type { LoginResponse } from '@/types';
 
 const schema = z.object({
   email: z.string().email('Enter a valid email address'),
@@ -39,7 +39,7 @@ export default function LoginForm() {
 
   async function onSubmit(values: FormValues) {
     try {
-      const { data } = await api.post<AuthResponse>('/auth/login', values);
+      const { data } = await api.post<LoginResponse>('/auth/login', values);
       setAuth(data.access_token, data.user);
       setRoleCookie(data.user.role);
 

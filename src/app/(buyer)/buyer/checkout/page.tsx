@@ -52,9 +52,9 @@ export default function CheckoutPage() {
   const router = useRouter();
   const qc = useQueryClient();
   const user = useAuthStore((s) => s.user);
-  const { data: cart } = useCart();
+  const { data: cartData } = useCart();
 
-  const subtotal = cart?.subtotal ?? 0;
+  const subtotal = cartData?.subtotal ?? 0;
   const shipping = subtotal >= SHIPPING_THRESHOLD ? 0 : FLAT_SHIPPING;
   const total = subtotal + shipping;
 
@@ -72,7 +72,7 @@ export default function CheckoutPage() {
   });
 
   async function onSubmit(values: FormValues) {
-    if (!cart?.items.length) {
+    if (!cartData?.items.length) {
       toast.error('Your cart is empty');
       return;
     }
@@ -136,7 +136,7 @@ export default function CheckoutPage() {
 
           <button
             type="submit"
-            disabled={isSubmitting || !cart?.items.length}
+            disabled={isSubmitting || !cartData?.items.length}
             className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-neutral-950 text-sm font-medium text-white transition-colors hover:bg-neutral-800 disabled:cursor-not-allowed disabled:bg-neutral-300"
           >
             {isSubmitting
@@ -151,7 +151,7 @@ export default function CheckoutPage() {
             <h2 className="mb-5 text-[14px] font-semibold text-neutral-900">Order summary</h2>
 
             <div className="space-y-3 text-[13px]">
-              {(cart?.items ?? []).map((item) => (
+              {(cartData?.items ?? []).map((item) => (
                 <div key={item.id} className="flex justify-between text-neutral-600">
                   <span className="line-clamp-1 flex-1 pr-2">
                     {item.product.name}

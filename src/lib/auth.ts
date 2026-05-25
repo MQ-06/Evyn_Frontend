@@ -1,9 +1,9 @@
 import Cookies from 'js-cookie';
-import type { AuthUser, Role } from '@/types';
+import type { AuthUser, RoleType } from '@/types';
 
 const ROLE_COOKIE = 'evyn-role';
 
-export function setRoleCookie(role: Role) {
+export function setRoleCookie(role: RoleType) {
   Cookies.set(ROLE_COOKIE, role, { expires: 7, sameSite: 'lax' });
 }
 
@@ -11,7 +11,7 @@ export function clearRoleCookie() {
   Cookies.remove(ROLE_COOKIE);
 }
 
-export function getDashboardPath(role: Role): string {
+export function getDashboardPath(role: RoleType): string {
   return `/${role}/dashboard`;
 }
 
@@ -38,6 +38,6 @@ export function formatDate(iso: string): string {
   }).format(new Date(iso));
 }
 
-export function canUserAccess(user: AuthUser | null, role: Role): boolean {
+export function canUserAccess(user: AuthUser | null, role: RoleType): boolean {
   return user?.role === role;
 }

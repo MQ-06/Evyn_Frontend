@@ -4,16 +4,16 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Package } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { useSellerOrder, useUpdateOrderStatus } from '@/hooks/useSellerOrders';
+import { useSellerOrder, useUpdateOrderStatusType } from '@/hooks/useSellerOrders';
 import { formatPrice, formatDate } from '@/lib/auth';
 import { getApiError } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/Skeleton';
 import OrderStatusBadge from '@/components/shared/OrderStatusBadge';
-import type { OrderStatus } from '@/types';
+import type { OrderStatusType } from '@/types';
 
-const STATUS_FLOW: OrderStatus[] = ['pending', 'confirmed', 'shipped', 'delivered'];
+const STATUS_FLOW: OrderStatusType[] = ['pending', 'confirmed', 'shipped', 'delivered'];
 
-const STATUS_LABELS: Record<OrderStatus, string> = {
+const STATUS_LABELS: Record<OrderStatusType, string> = {
   pending: 'Pending',
   confirmed: 'Confirmed',
   shipped: 'Shipped',
@@ -24,10 +24,10 @@ const STATUS_LABELS: Record<OrderStatus, string> = {
 export default function SellerOrderDetailPage({ params }: { params: { id: string } }) {
   const { id } = params;
   const { data: order, isLoading } = useSellerOrder(id);
-  const updateStatus = useUpdateOrderStatus();
+  const updateStatus = useUpdateOrderStatusType();
   const [trackingNote, setTrackingNote] = useState('');
 
-  async function handleStatusUpdate(status: OrderStatus) {
+  async function handleStatusUpdate(status: OrderStatusType) {
     try {
       await updateStatus.mutateAsync({ id, status, trackingNote: trackingNote || undefined });
       toast.success(`Order marked as ${STATUS_LABELS[status].toLowerCase()}`);
@@ -56,7 +56,7 @@ export default function SellerOrderDetailPage({ params }: { params: { id: string
     );
   }
 
-  const currentIdx = STATUS_FLOW.indexOf(order.status as OrderStatus);
+  const currentIdx = STATUS_FLOW.indexOf(order.status as OrderStatusType);
   const nextStatus = currentIdx >= 0 && currentIdx < STATUS_FLOW.length - 1
     ? STATUS_FLOW[currentIdx + 1]
     : null;
