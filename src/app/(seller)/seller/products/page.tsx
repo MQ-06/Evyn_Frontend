@@ -35,19 +35,19 @@ export default function SellerProductsPage() {
   }
 
   return (
-    <div>
+    <>
       <div className="mb-8 flex items-center justify-between">
         <div>
-          <h1 className="text-[1.5rem] font-bold tracking-tight text-neutral-950">Products</h1>
+          <h1 className="text-2xl font-bold tracking-tight text-neutral-950">Products</h1>
           {!isLoading && (
-            <p className="mt-1 text-[14px] text-neutral-500">
+            <p className="mt-1 text-sm text-neutral-500">
               {products?.length ?? 0} listing{products?.length !== 1 ? 's' : ''}
             </p>
           )}
         </div>
         <Link
           href="/seller/products/new"
-          className="flex items-center gap-1.5 rounded-lg bg-neutral-950 px-4 py-2.5 text-[13px] font-medium text-white transition-colors hover:bg-neutral-800 active:scale-[0.98]"
+          className="flex items-center gap-1.5 rounded-lg bg-neutral-950 px-4 py-2.5 text-13 font-medium text-white transition-colors hover:bg-neutral-800 active:scale-98"
         >
           <PlusCircle size={14} />
           Add product
@@ -83,8 +83,8 @@ export default function SellerProductsPage() {
 
                 {/* Info */}
                 <div className="flex-1 min-w-0">
-                  <p className="truncate text-[14px] font-semibold text-neutral-900">{product.name}</p>
-                  <div className="mt-0.5 flex items-center gap-3 text-[12px] text-neutral-400">
+                  <p className="truncate text-sm font-semibold text-neutral-900">{product.name}</p>
+                  <div className="mt-0.5 flex items-center gap-3 text-xs text-neutral-400">
                     <span>{formatPrice(product.price)}</span>
                     <span>·</span>
                     <span>{product.stock} in stock</span>
@@ -93,7 +93,7 @@ export default function SellerProductsPage() {
                 </div>
 
                 {/* Status */}
-                <span className={`shrink-0 rounded-full px-2.5 py-0.5 text-[11px] font-medium ${
+                <span className={`shrink-0 rounded-full px-2.5 py-0.5 text-11 font-medium ${
                   product.isActive
                     ? 'bg-emerald-50 text-emerald-700'
                     : 'bg-neutral-100 text-neutral-500'
@@ -134,6 +134,6 @@ export default function SellerProductsPage() {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

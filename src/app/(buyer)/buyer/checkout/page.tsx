@@ -11,10 +11,10 @@ import { useAuthStore } from '@/stores/auth.store';
 import api from '@/lib/api';
 import { getApiError } from '@/lib/utils';
 import { formatPrice } from '@/lib/auth';
+import { inputCls } from '@/lib/styles';
+import { SHIPPING_THRESHOLD, FLAT_SHIPPING } from '@/lib/constants';
+import FormField from '@/components/ui/FormField';
 import type { Order } from '@/types';
-
-const SHIPPING_THRESHOLD = 50;
-const FLAT_SHIPPING = 5;
 
 const schema = z.object({
   fullName:     z.string().min(1, 'Required').max(120),
@@ -28,25 +28,6 @@ const schema = z.object({
 });
 
 type FormValues = z.infer<typeof schema>;
-
-function Field({
-  label, error, required = true, children,
-}: {
-  label: string; error?: string; required?: boolean; children: React.ReactNode;
-}) {
-  return (
-    <div className="flex flex-col gap-1.5">
-      <label className="flex items-center gap-1.5 text-[13px] font-medium text-neutral-700">
-        {label}
-        {!required && <span className="font-normal text-neutral-400">(optional)</span>}
-      </label>
-      {children}
-      {error && <p className="text-[12px] text-red-500">{error}</p>}
-    </div>
-  );
-}
-
-const inputCls = 'h-10 w-full rounded-lg border border-neutral-200 bg-white px-3 text-sm text-neutral-900 placeholder-neutral-400 outline-none transition-colors focus:border-neutral-400 focus:ring-2 focus:ring-neutral-200';
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -88,48 +69,48 @@ export default function CheckoutPage() {
 
   return (
     <div>
-      <h1 className="mb-8 text-[1.5rem] font-bold tracking-tight text-neutral-950">Checkout</h1>
+      <h1 className="mb-8 text-2xl font-bold tracking-tight text-neutral-950">Checkout</h1>
 
       <div className="flex flex-col gap-8 lg:flex-row lg:items-start">
         {/* Shipping form */}
         <form onSubmit={handleSubmit(onSubmit)} className="flex-1 space-y-5" noValidate>
           <div className="rounded-2xl border border-neutral-100 bg-white p-6">
-            <h2 className="mb-5 text-[14px] font-semibold text-neutral-900">Shipping address</h2>
+            <h2 className="mb-5 text-sm font-semibold text-neutral-900">Shipping address</h2>
 
             <div className="space-y-4">
               <div className="grid gap-4 sm:grid-cols-2">
-                <Field label="Full name" error={errors.fullName?.message}>
+                <FormField label="Full name" error={errors.fullName?.message}>
                   <input {...register('fullName')} placeholder="Jane Smith" className={inputCls} />
-                </Field>
-                <Field label="Phone" error={errors.phone?.message}>
+                </FormField>
+                <FormField label="Phone" error={errors.phone?.message}>
                   <input {...register('phone')} type="tel" placeholder="+1 555 000 0000" className={inputCls} />
-                </Field>
+                </FormField>
               </div>
 
-              <Field label="Address line 1" error={errors.addressLine1?.message}>
+              <FormField label="Address line 1" error={errors.addressLine1?.message}>
                 <input {...register('addressLine1')} placeholder="123 Main Street" className={inputCls} />
-              </Field>
+              </FormField>
 
-              <Field label="Address line 2" error={errors.addressLine2?.message} required={false}>
+              <FormField label="Address line 2" error={errors.addressLine2?.message} required={false}>
                 <input {...register('addressLine2')} placeholder="Apt, suite, unit…" className={inputCls} />
-              </Field>
+              </FormField>
 
               <div className="grid gap-4 sm:grid-cols-2">
-                <Field label="City" error={errors.city?.message}>
+                <FormField label="City" error={errors.city?.message}>
                   <input {...register('city')} placeholder="New York" className={inputCls} />
-                </Field>
-                <Field label="State / Province" error={errors.state?.message}>
+                </FormField>
+                <FormField label="State / Province" error={errors.state?.message}>
                   <input {...register('state')} placeholder="NY" className={inputCls} />
-                </Field>
+                </FormField>
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
-                <Field label="Postal code" error={errors.postalCode?.message}>
+                <FormField label="Postal code" error={errors.postalCode?.message}>
                   <input {...register('postalCode')} placeholder="10001" className={inputCls} />
-                </Field>
-                <Field label="Country" error={errors.country?.message}>
+                </FormField>
+                <FormField label="Country" error={errors.country?.message}>
                   <input {...register('country')} placeholder="United States" className={inputCls} />
-                </Field>
+                </FormField>
               </div>
             </div>
           </div>
@@ -148,9 +129,9 @@ export default function CheckoutPage() {
         {/* Order summary */}
         <div className="w-full lg:w-72 shrink-0">
           <div className="rounded-2xl border border-neutral-100 bg-white p-6">
-            <h2 className="mb-5 text-[14px] font-semibold text-neutral-900">Order summary</h2>
+            <h2 className="mb-5 text-sm font-semibold text-neutral-900">Order summary</h2>
 
-            <div className="space-y-3 text-[13px]">
+            <div className="space-y-3 text-13">
               {(cartData?.items ?? []).map((item) => (
                 <div key={item.id} className="flex justify-between text-neutral-600">
                   <span className="line-clamp-1 flex-1 pr-2">

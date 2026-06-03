@@ -32,11 +32,11 @@ export default function AdminBuyersPage() {
   }
 
   return (
-    <div>
+    <>
       <div className="mb-8">
-        <h1 className="text-[1.5rem] font-bold tracking-tight text-neutral-950">Buyers</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-neutral-950">Buyers</h1>
         {!isLoading && (
-          <p className="mt-1 text-[14px] text-neutral-500">
+          <p className="mt-1 text-sm text-neutral-500">
             {buyers?.length ?? 0} buyer{buyers?.length !== 1 ? 's' : ''}
           </p>
         )}
@@ -49,15 +49,15 @@ export default function AdminBuyersPage() {
       ) : !buyers?.length ? (
         <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-neutral-200 py-20 text-center">
           <Users size={36} strokeWidth={1.25} className="mb-4 text-neutral-300" />
-          <p className="text-[15px] font-medium text-neutral-500">No buyers yet</p>
+          <p className="text-15 font-medium text-neutral-500">No buyers yet</p>
         </div>
       ) : (
         <div className="overflow-hidden rounded-2xl border border-neutral-100 bg-white">
           {/* Header */}
           <div className="grid grid-cols-[1fr_auto_auto_auto] gap-4 border-b border-neutral-100 px-5 py-3">
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-neutral-400">Buyer</span>
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-neutral-400">Joined</span>
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-neutral-400">Status</span>
+            <span className="text-11 font-semibold uppercase tracking-wider text-neutral-400">Buyer</span>
+            <span className="text-11 font-semibold uppercase tracking-wider text-neutral-400">Joined</span>
+            <span className="text-11 font-semibold uppercase tracking-wider text-neutral-400">Status</span>
             <span />
           </div>
 
@@ -65,14 +65,14 @@ export default function AdminBuyersPage() {
             {buyers.map((buyer) => (
               <div key={buyer.id} className="grid grid-cols-[1fr_auto_auto_auto] items-center gap-4 px-5 py-4">
                 <div className="min-w-0">
-                  <p className="truncate text-[14px] font-semibold text-neutral-900">{buyer.name}</p>
-                  <p className="truncate text-[12px] text-neutral-400">{buyer.email}</p>
-                  {buyer.phone && <p className="text-[11px] text-neutral-300">{buyer.phone}</p>}
+                  <p className="truncate text-sm font-semibold text-neutral-900">{buyer.name}</p>
+                  <p className="truncate text-xs text-neutral-400">{buyer.email}</p>
+                  {buyer.phone && <p className="text-11 text-neutral-300">{buyer.phone}</p>}
                 </div>
 
-                <span className="text-[13px] text-neutral-500">{formatDate(buyer.createdAt)}</span>
+                <span className="text-13 text-neutral-500">{formatDate(buyer.createdAt)}</span>
 
-                <span className={`shrink-0 rounded-full px-2.5 py-0.5 text-[11px] font-medium ${
+                <span className={`shrink-0 rounded-full px-2.5 py-0.5 text-11 font-medium ${
                   buyer.isActive ? 'bg-emerald-50 text-emerald-700' : 'bg-neutral-100 text-neutral-500'
                 }`}>
                   {buyer.isActive ? 'Active' : 'Inactive'}
@@ -103,6 +103,6 @@ export default function AdminBuyersPage() {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

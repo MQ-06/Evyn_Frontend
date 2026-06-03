@@ -73,16 +73,16 @@ async function FeaturedProducts() {
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 flex items-end justify-between">
           <div>
-            <p className="mb-2 text-[13px] font-semibold uppercase tracking-widest text-neutral-400">
+            <p className="mb-2 text-13 font-semibold uppercase tracking-widest text-neutral-400">
               Just in
             </p>
-            <h2 className="text-[1.75rem] font-bold tracking-tight text-neutral-950">
+            <h2 className="text-heading font-bold tracking-tight text-neutral-950">
               Latest arrivals
             </h2>
           </div>
           <Link
             href="/products"
-            className="flex items-center gap-1 text-[13px] font-medium text-neutral-500 hover:text-neutral-900 transition-colors"
+            className="flex items-center gap-1 text-13 font-medium text-neutral-500 hover:text-neutral-900 transition-colors"
           >
             View all <ArrowRight size={13} />
           </Link>
@@ -93,7 +93,7 @@ async function FeaturedProducts() {
           <div className="mb-6 flex gap-2 overflow-x-auto pb-1">
             <Link
               href="/products"
-              className="shrink-0 rounded-full border border-neutral-200 bg-white px-3.5 py-1.5 text-[12px] font-medium text-neutral-600 hover:border-neutral-300 transition-colors"
+              className="shrink-0 rounded-full border border-neutral-200 bg-white px-3.5 py-1.5 text-xs font-medium text-neutral-600 hover:border-neutral-300 transition-colors"
             >
               All
             </Link>
@@ -101,7 +101,7 @@ async function FeaturedProducts() {
               <Link
                 key={cat.id}
                 href={`/products?categoryId=${cat.id}`}
-                className="shrink-0 rounded-full border border-neutral-200 bg-white px-3.5 py-1.5 text-[12px] font-medium text-neutral-600 hover:border-neutral-300 transition-colors"
+                className="shrink-0 rounded-full border border-neutral-200 bg-white px-3.5 py-1.5 text-xs font-medium text-neutral-600 hover:border-neutral-300 transition-colors"
               >
                 {cat.name}
               </Link>
@@ -129,7 +129,7 @@ export default function HomePage() {
       <section className="bg-neutral-950 px-5 pb-20 pt-24 sm:px-8 sm:pb-28 sm:pt-32">
         <div className="mx-auto max-w-6xl">
 
-          <p className="mb-7 text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-500">
+          <p className="mb-7 text-11 font-semibold uppercase tracking-[0.2em] text-neutral-500">
             Multi-vendor marketplace
           </p>
 
@@ -137,14 +137,14 @@ export default function HomePage() {
             The marketplace built for independent sellers.
           </h1>
 
-          <p className="mt-7 max-w-md text-[16px] leading-relaxed text-neutral-400">
+          <p className="mt-7 max-w-md text-base leading-relaxed text-neutral-400">
             Evyn connects verified sellers with buyers who care about quality. Browse, buy, and track every order — all in one place.
           </p>
 
           <div className="mt-10 flex flex-wrap gap-3">
             <Link
               href="/products"
-              className="group inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-semibold text-neutral-950 transition-colors hover:bg-neutral-100 active:scale-[0.98]"
+              className="group inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-semibold text-neutral-950 transition-colors hover:bg-neutral-100 active:scale-98"
             >
               Browse products
               <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
@@ -165,7 +165,7 @@ export default function HomePage() {
             ].map(({ n, label }) => (
               <div key={label}>
                 <p className="text-[2rem] font-bold tracking-tight text-white">{n}</p>
-                <p className="mt-0.5 text-[13px] text-neutral-500">{label}</p>
+                <p className="mt-0.5 text-13 text-neutral-500">{label}</p>
               </div>
             ))}
           </div>
@@ -193,8 +193,8 @@ export default function HomePage() {
       <section className="border-y border-neutral-100 bg-neutral-50 px-5 py-20 sm:px-8 sm:py-24">
         <div className="mx-auto max-w-6xl">
           <div className="mb-14 text-center">
-            <p className="mb-3 text-[13px] font-semibold uppercase tracking-widest text-neutral-400">Platform</p>
-            <h2 className="text-[1.75rem] font-bold tracking-[-0.02em] text-neutral-950 sm:text-3xl">
+            <p className="mb-3 text-13 font-semibold uppercase tracking-widest text-neutral-400">Platform</p>
+            <h2 className="text-heading font-bold tracking-[-0.02em] text-neutral-950 sm:text-3xl">
               Built for the full commerce lifecycle
             </h2>
           </div>
@@ -204,7 +204,7 @@ export default function HomePage() {
                 <div className="mb-4 inline-flex rounded-lg border border-neutral-100 bg-neutral-50 p-2.5">
                   <Icon size={18} strokeWidth={1.75} className="text-neutral-700" />
                 </div>
-                <h3 className="mb-1.5 text-[15px] font-semibold text-neutral-950">{title}</h3>
+                <h3 className="mb-1.5 text-15 font-semibold text-neutral-950">{title}</h3>
                 <p className="text-sm leading-relaxed text-neutral-500">{desc}</p>
               </div>
             ))}
@@ -217,10 +217,10 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl">
 
           <div className="mb-12 flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
-            <h2 className="text-[1.75rem] font-bold tracking-[-0.02em] text-neutral-950 sm:text-3xl">
+            <h2 className="text-heading font-bold tracking-[-0.02em] text-neutral-950 sm:text-3xl">
               Up and running in minutes.
             </h2>
-            <p className="text-[13px] text-neutral-400 sm:text-right">Three steps. No friction.</p>
+            <p className="text-13 text-neutral-400 sm:text-right">Three steps. No friction.</p>
           </div>
 
           <div className="divide-y divide-neutral-100">
@@ -233,8 +233,8 @@ export default function HomePage() {
                   {n}
                 </span>
                 <div className="flex-1 pt-1">
-                  <h3 className="text-[18px] font-semibold text-neutral-950">{title}</h3>
-                  <p className="mt-2 max-w-md text-[14px] leading-relaxed text-neutral-500">{desc}</p>
+                  <h3 className="text-lg font-semibold text-neutral-950">{title}</h3>
+                  <p className="mt-2 max-w-md text-sm leading-relaxed text-neutral-500">{desc}</p>
                 </div>
               </div>
             ))}
@@ -248,17 +248,17 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h2 className="text-[1.5rem] font-bold tracking-[-0.02em] text-neutral-950">
+              <h2 className="text-2xl font-bold tracking-[-0.02em] text-neutral-950">
                 Ready to start shopping?
               </h2>
-              <p className="mt-2 max-w-sm text-[14px] leading-relaxed text-neutral-500">
+              <p className="mt-2 max-w-sm text-sm leading-relaxed text-neutral-500">
                 Join thousands of buyers discovering unique products from verified independent sellers.
               </p>
             </div>
             <div className="flex shrink-0 flex-wrap gap-3">
               <Link
                 href="/signup"
-                className="rounded-lg bg-neutral-950 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-neutral-800 active:scale-[0.98]"
+                className="rounded-lg bg-neutral-950 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-neutral-800 active:scale-98"
               >
                 Create free account
               </Link>

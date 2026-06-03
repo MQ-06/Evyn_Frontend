@@ -14,9 +14,9 @@ export default function SellerOrdersPage() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-[1.5rem] font-bold tracking-tight text-neutral-950">Orders</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-neutral-950">Orders</h1>
         {!isLoading && (
-          <p className="mt-1 text-[14px] text-neutral-500">
+          <p className="mt-1 text-sm text-neutral-500">
             {orders?.length ?? 0} order{orders?.length !== 1 ? 's' : ''}
           </p>
         )}
@@ -36,10 +36,10 @@ export default function SellerOrdersPage() {
         <div className="overflow-hidden rounded-2xl border border-neutral-100 bg-white">
           {/* Header */}
           <div className="grid grid-cols-[1fr_auto_auto_auto_auto] gap-4 border-b border-neutral-100 px-5 py-3">
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-neutral-400">Order</span>
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-neutral-400">Date</span>
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-neutral-400">Status</span>
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-neutral-400">Total</span>
+            <span className="text-11 font-semibold uppercase tracking-wider text-neutral-400">Order</span>
+            <span className="text-11 font-semibold uppercase tracking-wider text-neutral-400">Date</span>
+            <span className="text-11 font-semibold uppercase tracking-wider text-neutral-400">Status</span>
+            <span className="text-11 font-semibold uppercase tracking-wider text-neutral-400">Total</span>
             <span />
           </div>
 
@@ -51,16 +51,16 @@ export default function SellerOrdersPage() {
                 className="grid grid-cols-[1fr_auto_auto_auto_auto] items-center gap-4 px-5 py-4 hover:bg-neutral-50 transition-colors"
               >
                 <div>
-                  <p className="font-mono text-[13px] font-medium text-neutral-900">
+                  <p className="font-mono text-13 font-medium text-neutral-900">
                     #{order.id.slice(0, 8).toUpperCase()}
                   </p>
-                  <p className="text-[12px] text-neutral-400">
+                  <p className="text-xs text-neutral-400">
                     {order.items?.length ?? 0} item{order.items?.length !== 1 ? 's' : ''}
                   </p>
                 </div>
-                <span className="text-[13px] text-neutral-500">{formatDate(order.createdAt)}</span>
+                <span className="text-13 text-neutral-500">{formatDate(order.createdAt)}</span>
                 <OrderStatusBadge status={order.status} />
-                <span className="text-[13px] font-medium text-neutral-900">{formatPrice(order.total)}</span>
+                <span className="text-13 font-medium text-neutral-900">{formatPrice(order.total)}</span>
                 <ArrowRight size={14} className="text-neutral-300" />
               </Link>
             ))}

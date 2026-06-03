@@ -26,9 +26,9 @@ const variantClasses: Record<Variant, string> = {
 };
 
 const sizeClasses: Record<Size, string> = {
-  sm: 'h-8 px-3 text-[13px]',
+  sm: 'h-8 px-3 text-13',
   md: 'h-10 px-4 text-sm',
-  lg: 'h-11 px-6 text-[15px]',
+  lg: 'h-11 px-6 text-15',
 };
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -43,7 +43,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         className={[
           'inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
-          'disabled:cursor-not-allowed active:scale-[0.98]',
+          'disabled:cursor-not-allowed active:scale-98',
           variantClasses[variant],
           sizeClasses[size],
           className,

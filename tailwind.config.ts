@@ -12,9 +12,22 @@ const config: Config = {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
       },
       fontSize: {
-        "display-lg": ["4.5rem", { lineHeight: "1.05", letterSpacing: "-0.03em", fontWeight: "700" }],
-        "display": ["3.75rem", { lineHeight: "1.08", letterSpacing: "-0.025em", fontWeight: "700" }],
-        "display-sm": ["3rem", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "700" }],
+        // Display / hero sizes
+        "display-lg": ["4.5rem",  { lineHeight: "1.05", letterSpacing: "-0.03em",  fontWeight: "700" }],
+        "display":    ["3.75rem", { lineHeight: "1.08", letterSpacing: "-0.025em", fontWeight: "700" }],
+        "display-sm": ["3rem",    { lineHeight: "1.1",  letterSpacing: "-0.02em",  fontWeight: "700" }],
+        // Heading sizes (no Tailwind equivalent)
+        "heading":    ["1.75rem", { lineHeight: "1.2",  letterSpacing: "-0.02em" }],
+        "heading-lg": ["2rem",    { lineHeight: "1.15", letterSpacing: "-0.025em" }],
+        // Pixel sizes not covered by Tailwind's default scale
+        "10": ["0.625rem",  { lineHeight: "1.4" }],
+        "11": ["0.6875rem", { lineHeight: "1.4" }],
+        "13": ["0.8125rem", { lineHeight: "1.5" }],
+        "15": ["0.9375rem", { lineHeight: "1.5" }],
+        "17": ["1.0625rem", { lineHeight: "1.5" }],
+      },
+      scale: {
+        "98": "0.98",
       },
       colors: {
         neutral: {

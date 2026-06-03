@@ -22,15 +22,15 @@ export default function Footer() {
 
           {/* Brand */}
           <div>
-            <span className="text-[16px] font-bold tracking-tight text-white">Evyn</span>
-            <p className="mt-3 max-w-xs text-[13px] leading-relaxed text-neutral-500">
+            <span className="text-base font-bold tracking-tight text-white">Evyn</span>
+            <p className="mt-3 max-w-xs text-13 leading-relaxed text-neutral-500">
               A curated multi-vendor marketplace connecting verified sellers with buyers who value quality.
             </p>
           </div>
 
           {/* Marketplace links */}
           <div>
-            <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.15em] text-neutral-600">
+            <p className="mb-4 text-11 font-semibold uppercase tracking-[0.15em] text-neutral-600">
               Marketplace
             </p>
             <ul className="flex flex-col gap-2.5">
@@ -38,7 +38,7 @@ export default function Footer() {
                 <li key={href}>
                   <Link
                     href={href}
-                    className="text-[13px] text-neutral-400 transition-colors hover:text-white"
+                    className="text-13 text-neutral-400 transition-colors hover:text-white"
                   >
                     {label}
                   </Link>
@@ -49,7 +49,7 @@ export default function Footer() {
 
           {/* Sellers links */}
           <div>
-            <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.15em] text-neutral-600">
+            <p className="mb-4 text-11 font-semibold uppercase tracking-[0.15em] text-neutral-600">
               Sellers
             </p>
             <ul className="flex flex-col gap-2.5">
@@ -57,7 +57,7 @@ export default function Footer() {
                 <li key={href}>
                   <Link
                     href={href}
-                    className="text-[13px] text-neutral-400 transition-colors hover:text-white"
+                    className="text-13 text-neutral-400 transition-colors hover:text-white"
                   >
                     {label}
                   </Link>
@@ -72,14 +72,14 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-neutral-800">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-5 py-5 sm:flex-row sm:px-8">
-          <p className="text-[12px] text-neutral-600">
+          <p className="text-xs text-neutral-600">
             &copy; {new Date().getFullYear()} Evyn. All rights reserved.
           </p>
           <div className="flex items-center gap-5">
-            <Link href="/login" className="text-[12px] text-neutral-600 hover:text-neutral-400 transition-colors">
+            <Link href="/login" className="text-xs text-neutral-600 hover:text-neutral-400 transition-colors">
               Privacy
             </Link>
-            <Link href="/login" className="text-[12px] text-neutral-600 hover:text-neutral-400 transition-colors">
+            <Link href="/login" className="text-xs text-neutral-600 hover:text-neutral-400 transition-colors">
               Terms
             </Link>
           </div>

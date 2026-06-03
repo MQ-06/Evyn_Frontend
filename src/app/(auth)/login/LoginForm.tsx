@@ -13,6 +13,7 @@ import api from '@/lib/api';
 import { getApiError } from '@/lib/utils';
 import { setRoleCookie } from '@/lib/auth';
 import { useAuthStore } from '@/stores/auth.store';
+import { authInputCls as inputClass } from '@/lib/styles';
 import type { LoginResponse } from '@/types';
 
 const schema = z.object({
@@ -21,9 +22,6 @@ const schema = z.object({
 });
 
 type FormValues = z.infer<typeof schema>;
-
-const inputClass =
-  'h-10 w-full rounded-lg border border-neutral-200 bg-neutral-50 px-3 text-sm text-neutral-900 placeholder-neutral-400 outline-none transition-all focus:border-neutral-400 focus:bg-white focus:ring-2 focus:ring-neutral-100';
 
 export default function LoginForm() {
   const router = useRouter();
@@ -55,17 +53,17 @@ export default function LoginForm() {
   return (
     <>
       <div className="mb-8">
-        <h1 className="text-[1.5rem] font-bold tracking-tight text-neutral-950">
+        <h1 className="text-2xl font-bold tracking-tight text-neutral-950">
           Sign in
         </h1>
-        <p className="mt-1.5 text-[14px] text-neutral-500">
+        <p className="mt-1.5 text-sm text-neutral-500">
           Welcome back. Enter your details to continue.
         </p>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="flex flex-col gap-5">
         <div className="flex flex-col gap-1.5">
-          <label htmlFor="email" className="text-[13px] font-medium text-neutral-700">
+          <label htmlFor="email" className="text-13 font-medium text-neutral-700">
             Email
           </label>
           <input
@@ -77,12 +75,12 @@ export default function LoginForm() {
             className={inputClass}
           />
           {errors.email && (
-            <p className="text-[12px] text-red-500">{errors.email.message}</p>
+            <p className="text-xs text-red-500">{errors.email.message}</p>
           )}
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <label htmlFor="password" className="text-[13px] font-medium text-neutral-700">
+          <label htmlFor="password" className="text-13 font-medium text-neutral-700">
             Password
           </label>
           <div className="relative">
@@ -104,14 +102,14 @@ export default function LoginForm() {
             </button>
           </div>
           {errors.password && (
-            <p className="text-[12px] text-red-500">{errors.password.message}</p>
+            <p className="text-xs text-red-500">{errors.password.message}</p>
           )}
         </div>
 
         <button
           type="submit"
           disabled={isSubmitting}
-          className="mt-1 flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-neutral-950 text-sm font-semibold text-white transition-colors hover:bg-neutral-700 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40"
+          className="mt-1 flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-neutral-950 text-sm font-semibold text-white transition-colors hover:bg-neutral-700 active:scale-98 disabled:cursor-not-allowed disabled:opacity-40"
         >
           {isSubmitting ? (
             <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
@@ -121,7 +119,7 @@ export default function LoginForm() {
         </button>
       </form>
 
-      <p className="mt-6 text-center text-[13px] text-neutral-500">
+      <p className="mt-6 text-center text-13 text-neutral-500">
         Don&apos;t have an account?{' '}
         <Link href="/signup" className="font-medium text-neutral-900 underline-offset-2 hover:underline">
           Sign up

@@ -9,6 +9,7 @@ import { Upload, X, ImageIcon, Loader2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import api from '@/lib/api';
 import { getApiError } from '@/lib/utils';
+import { inputCls } from '@/lib/styles';
 import type { Category } from '@/types';
 
 const schema = z.object({
@@ -29,8 +30,6 @@ interface ProductFormProps {
   onSubmit: (values: ProductFormValues, images: string[]) => Promise<void>;
   submitLabel: string;
 }
-
-const inputCls = 'h-10 w-full rounded-lg border border-neutral-200 bg-white px-3 text-sm text-neutral-900 placeholder-neutral-400 outline-none transition-colors focus:border-neutral-400 focus:ring-2 focus:ring-neutral-200';
 
 export default function ProductForm({
   categories,
@@ -86,7 +85,7 @@ export default function ProductForm({
 
       {/* Images */}
       <div className="rounded-2xl border border-neutral-100 bg-white p-6">
-        <h2 className="mb-4 text-[14px] font-semibold text-neutral-900">
+        <h2 className="mb-4 text-sm font-semibold text-neutral-900">
           Images <span className="font-normal text-neutral-400">({images.length}/6)</span>
         </h2>
         <div className="flex flex-wrap gap-3">
@@ -107,7 +106,7 @@ export default function ProductForm({
             <label className={`flex h-24 w-24 cursor-pointer flex-col items-center justify-center gap-1.5 rounded-xl border-2 border-dashed border-neutral-200 text-neutral-400 transition-colors hover:border-neutral-300 hover:bg-neutral-50 ${uploading ? 'pointer-events-none opacity-60' : ''}`}>
               {uploading
                 ? <Loader2 size={18} className="animate-spin" />
-                : <><Upload size={18} /><span className="text-[11px]">Upload</span></>}
+                : <><Upload size={18} /><span className="text-11">Upload</span></>}
               <input
                 type="file"
                 accept="image/jpeg,image/png,image/webp"
@@ -119,7 +118,7 @@ export default function ProductForm({
           )}
 
           {images.length === 0 && !uploading && (
-            <div className="flex items-center gap-2 text-[12px] text-neutral-400">
+            <div className="flex items-center gap-2 text-xs text-neutral-400">
               <ImageIcon size={14} />
               <span>No images yet — upload up to 6</span>
             </div>
@@ -129,31 +128,31 @@ export default function ProductForm({
 
       {/* Core fields */}
       <div className="rounded-2xl border border-neutral-100 bg-white p-6 space-y-5">
-        <h2 className="text-[14px] font-semibold text-neutral-900">Details</h2>
+        <h2 className="text-sm font-semibold text-neutral-900">Details</h2>
 
         {/* Name */}
         <div className="flex flex-col gap-1.5">
-          <label className="text-[13px] font-medium text-neutral-700">Product name</label>
+          <label className="text-13 font-medium text-neutral-700">Product name</label>
           <input {...register('name')} placeholder="e.g. Handmade ceramic mug" className={inputCls} />
-          {errors.name && <p className="text-[12px] text-red-500">{errors.name.message}</p>}
+          {errors.name && <p className="text-xs text-red-500">{errors.name.message}</p>}
         </div>
 
         {/* Description */}
         <div className="flex flex-col gap-1.5">
-          <label className="text-[13px] font-medium text-neutral-700">Description</label>
+          <label className="text-13 font-medium text-neutral-700">Description</label>
           <textarea
             {...register('description')}
             rows={4}
             placeholder="Describe your product…"
             className="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2.5 text-sm text-neutral-900 placeholder-neutral-400 outline-none transition-colors focus:border-neutral-400 focus:ring-2 focus:ring-neutral-200 resize-none"
           />
-          {errors.description && <p className="text-[12px] text-red-500">{errors.description.message}</p>}
+          {errors.description && <p className="text-xs text-red-500">{errors.description.message}</p>}
         </div>
 
         {/* Price + Stock */}
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="flex flex-col gap-1.5">
-            <label className="text-[13px] font-medium text-neutral-700">Price (USD)</label>
+            <label className="text-13 font-medium text-neutral-700">Price (USD)</label>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-neutral-400">$</span>
               <input
@@ -165,31 +164,31 @@ export default function ProductForm({
                 className={`${inputCls} pl-7`}
               />
             </div>
-            {errors.price && <p className="text-[12px] text-red-500">{errors.price.message}</p>}
+            {errors.price && <p className="text-xs text-red-500">{errors.price.message}</p>}
           </div>
           <div className="flex flex-col gap-1.5">
-            <label className="text-[13px] font-medium text-neutral-700">Stock quantity</label>
+            <label className="text-13 font-medium text-neutral-700">Stock quantity</label>
             <input {...register('stock', { valueAsNumber: true })} type="number" min="0" placeholder="0" className={inputCls} />
-            {errors.stock && <p className="text-[12px] text-red-500">{errors.stock.message}</p>}
+            {errors.stock && <p className="text-xs text-red-500">{errors.stock.message}</p>}
           </div>
         </div>
 
         {/* Category */}
         <div className="flex flex-col gap-1.5">
-          <label className="text-[13px] font-medium text-neutral-700">Category</label>
+          <label className="text-13 font-medium text-neutral-700">Category</label>
           <select {...register('categoryId')} className={`${inputCls} cursor-pointer`}>
             <option value="">Select a category</option>
             {categories.map((cat) => (
               <option key={cat.id} value={cat.id}>{cat.name}</option>
             ))}
           </select>
-          {errors.categoryId && <p className="text-[12px] text-red-500">{errors.categoryId.message}</p>}
+          {errors.categoryId && <p className="text-xs text-red-500">{errors.categoryId.message}</p>}
         </div>
 
         {/* Active toggle */}
         <label className="flex cursor-pointer items-center gap-3">
           <input {...register('isActive')} type="checkbox" className="accent-neutral-950 h-4 w-4" />
-          <span className="text-[13px] font-medium text-neutral-700">
+          <span className="text-13 font-medium text-neutral-700">
             List as active (visible to buyers)
           </span>
         </label>

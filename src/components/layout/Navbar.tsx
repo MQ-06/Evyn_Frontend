@@ -32,7 +32,7 @@ function CartIcon() {
       <ShoppingCart size={15} strokeWidth={1.75} />
       Cart
       {count > 0 && (
-        <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white leading-none">
+        <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-10 font-bold text-white leading-none">
           {count > 99 ? '99+' : count}
         </span>
       )}
@@ -75,7 +75,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           href="/"
-          className="text-[16px] font-bold tracking-tight text-neutral-950 select-none"
+          className="text-base font-bold tracking-tight text-neutral-950 select-none"
         >
           Evyn
         </Link>
@@ -100,7 +100,7 @@ export default function Navbar() {
               </Link>
               <Link
                 href="/signup"
-                className="ml-2 rounded-lg bg-neutral-950 px-4 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-neutral-700 active:scale-[0.98]"
+                className="ml-2 rounded-lg bg-neutral-950 px-4 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-neutral-700 active:scale-98"
               >
                 Get started
               </Link>

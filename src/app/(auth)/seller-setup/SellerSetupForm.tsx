@@ -12,6 +12,7 @@ import api from '@/lib/api';
 import { getApiError } from '@/lib/utils';
 import { setRoleCookie } from '@/lib/auth';
 import { useAuthStore } from '@/stores/auth.store';
+import { authInputCls } from '@/lib/styles';
 import type { LoginResponse } from '@/types';
 
 const schema = z
@@ -26,8 +27,8 @@ const schema = z
 
 type FormValues = z.infer<typeof schema>;
 
-const inputClass =
-  'h-10 w-full rounded-lg border border-neutral-200 bg-neutral-50 px-3 pr-10 text-sm text-neutral-900 placeholder-neutral-400 outline-none transition-all focus:border-neutral-400 focus:bg-white focus:ring-2 focus:ring-neutral-100';
+// pr-10 makes room for the password-visibility toggle icon
+const inputClass = `${authInputCls} pr-10`;
 
 export default function SellerSetupForm() {
   const router = useRouter();
@@ -72,28 +73,28 @@ export default function SellerSetupForm() {
     <>
       <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1">
         <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-        <span className="text-[12px] font-medium text-emerald-700">Seller invite</span>
+        <span className="text-xs font-medium text-emerald-700">Seller invite</span>
       </div>
 
       <div className="mb-8 mt-4">
-        <h1 className="text-[1.5rem] font-bold tracking-tight text-neutral-950">
+        <h1 className="text-2xl font-bold tracking-tight text-neutral-950">
           Activate your account
         </h1>
-        <p className="mt-1.5 text-[14px] text-neutral-500">
+        <p className="mt-1.5 text-sm text-neutral-500">
           You&apos;ve been invited as a seller. Set a password to get started.
         </p>
       </div>
 
       <div className="mb-6 flex items-start gap-2.5 rounded-lg border border-amber-200 bg-amber-50 px-3.5 py-3">
         <AlertCircle size={15} className="mt-0.5 shrink-0 text-amber-600" />
-        <p className="text-[13px] leading-relaxed text-amber-700">
+        <p className="text-13 leading-relaxed text-amber-700">
           This invite link expires after 48 hours. If it&apos;s expired, contact your admin.
         </p>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="flex flex-col gap-5">
         <div className="flex flex-col gap-1.5">
-          <label htmlFor="password" className="text-[13px] font-medium text-neutral-700">
+          <label htmlFor="password" className="text-13 font-medium text-neutral-700">
             Password
           </label>
           <div className="relative">
@@ -115,12 +116,12 @@ export default function SellerSetupForm() {
             </button>
           </div>
           {errors.password && (
-            <p className="text-[12px] text-red-500">{errors.password.message}</p>
+            <p className="text-xs text-red-500">{errors.password.message}</p>
           )}
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <label htmlFor="confirmPassword" className="text-[13px] font-medium text-neutral-700">
+          <label htmlFor="confirmPassword" className="text-13 font-medium text-neutral-700">
             Confirm password
           </label>
           <div className="relative">
@@ -142,14 +143,14 @@ export default function SellerSetupForm() {
             </button>
           </div>
           {errors.confirmPassword && (
-            <p className="text-[12px] text-red-500">{errors.confirmPassword.message}</p>
+            <p className="text-xs text-red-500">{errors.confirmPassword.message}</p>
           )}
         </div>
 
         <button
           type="submit"
           disabled={isSubmitting}
-          className="mt-1 flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-neutral-950 text-sm font-semibold text-white transition-colors hover:bg-neutral-700 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40"
+          className="mt-1 flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-neutral-950 text-sm font-semibold text-white transition-colors hover:bg-neutral-700 active:scale-98 disabled:cursor-not-allowed disabled:opacity-40"
         >
           {isSubmitting ? (
             <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />

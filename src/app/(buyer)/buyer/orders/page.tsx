@@ -13,7 +13,7 @@ export default function OrdersPage() {
 
   return (
     <div>
-      <h1 className="mb-8 text-[1.5rem] font-bold tracking-tight text-neutral-950">Orders</h1>
+      <h1 className="mb-8 text-2xl font-bold tracking-tight text-neutral-950">Orders</h1>
 
       {isLoading ? (
         <div className="space-y-3">
@@ -31,7 +31,7 @@ export default function OrdersPage() {
           {/* Table header */}
           <div className="grid grid-cols-[1fr_120px_80px_80px_32px] items-center gap-4 border-b border-neutral-100 px-5 py-3">
             {['Order', 'Date', 'Status', 'Total', ''].map((h) => (
-              <p key={h} className="text-[11px] font-semibold uppercase tracking-wider text-neutral-400">{h}</p>
+              <p key={h} className="text-11 font-semibold uppercase tracking-wider text-neutral-400">{h}</p>
             ))}
           </div>
 
@@ -44,16 +44,16 @@ export default function OrdersPage() {
                 className="grid grid-cols-[1fr_120px_80px_80px_32px] items-center gap-4 px-5 py-4 hover:bg-neutral-50 transition-colors"
               >
                 <div>
-                  <p className="font-mono text-[13px] font-medium text-neutral-900">
+                  <p className="font-mono text-13 font-medium text-neutral-900">
                     #{order.id.slice(0, 8).toUpperCase()}
                   </p>
-                  <p className="text-[12px] text-neutral-400">
+                  <p className="text-xs text-neutral-400">
                     {order.items.length} item{order.items.length !== 1 ? 's' : ''}
                   </p>
                 </div>
-                <p className="text-[13px] text-neutral-600">{formatDate(order.createdAt)}</p>
+                <p className="text-13 text-neutral-600">{formatDate(order.createdAt)}</p>
                 <div><OrderStatusBadge status={order.status} /></div>
-                <p className="text-[13px] font-medium text-neutral-950">{formatPrice(order.total)}</p>
+                <p className="text-13 font-medium text-neutral-950">{formatPrice(order.total)}</p>
                 <ArrowRight size={14} className="text-neutral-400" />
               </Link>
             ))}

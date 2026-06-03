@@ -3,9 +3,9 @@
 import Link from 'next/link';
 import { ChevronLeft, MapPin, Truck } from 'lucide-react';
 import { useOrder } from '@/hooks/useOrders';
-import { formatPrice, formatDate } from '@/lib/auth';
+import { formatPrice, formatDate, formatOrderId } from '@/lib/auth';
 import OrderStatusBadge from '@/components/shared/OrderStatusBadge';
-import { Skeleton } from '@/components/ui/Skeleton';
+import OrderDetailSkeleton from '@/components/shared/OrderDetailSkeleton';
 
 export default function OrderDetailPage({ params }: { params: { id: string } }) {
   const { id } = params;
@@ -21,7 +21,7 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
       {/* Back link */}
       <Link
         href="/buyer/orders"
-        className="mb-6 inline-flex items-center gap-1.5 text-[13px] text-neutral-500 hover:text-neutral-800 transition-colors"
+        className="mb-6 inline-flex items-center gap-1.5 text-13 text-neutral-500 hover:text-neutral-800 transition-colors"
       >
         <ChevronLeft size={14} /> Orders
       </Link>
@@ -29,10 +29,10 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
       {/* Header */}
       <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="font-mono text-[1.25rem] font-bold text-neutral-950">
-            #{order.id.slice(0, 8).toUpperCase()}
+          <h1 className="font-mono text-xl font-bold text-neutral-950">
+            {formatOrderId(order.id)}
           </h1>
-          <p className="mt-1 text-[13px] text-neutral-500">Placed {formatDate(order.createdAt)}</p>
+          <p className="mt-1 text-13 text-neutral-500">Placed {formatDate(order.createdAt)}</p>
         </div>
         <OrderStatusBadge status={order.status} />
       </div>
@@ -44,20 +44,20 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
           {/* Items */}
           <div className="rounded-2xl border border-neutral-100 bg-white">
             <div className="border-b border-neutral-100 px-6 py-4">
-              <h2 className="text-[14px] font-semibold text-neutral-900">Items ordered</h2>
+              <h2 className="text-sm font-semibold text-neutral-900">Items ordered</h2>
             </div>
             <div className="divide-y divide-neutral-50">
               {order.items.map((item) => (
                 <div key={item.id} className="flex items-center justify-between gap-4 px-6 py-4">
                   <div className="flex-1 min-w-0">
-                    <p className="text-[14px] font-medium text-neutral-900 line-clamp-1">
+                    <p className="text-sm font-medium text-neutral-900 line-clamp-1">
                       {item.productName}
                     </p>
-                    <p className="mt-0.5 text-[12px] text-neutral-400">
+                    <p className="mt-0.5 text-xs text-neutral-400">
                       Qty {item.quantity} · {formatPrice(item.unitPrice)} each
                     </p>
                   </div>
-                  <p className="shrink-0 text-[14px] font-semibold text-neutral-950">
+                  <p className="shrink-0 text-sm font-semibold text-neutral-950">
                     {formatPrice(item.lineTotal)}
                   </p>
                 </div>
@@ -70,8 +70,8 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
             <div className="flex gap-3 rounded-2xl border border-neutral-100 bg-white p-5">
               <Truck size={16} strokeWidth={1.75} className="mt-0.5 shrink-0 text-neutral-500" />
               <div>
-                <p className="text-[13px] font-semibold text-neutral-900">Tracking update</p>
-                <p className="mt-1 text-[13px] leading-relaxed text-neutral-600">{order.trackingNote}</p>
+                <p className="text-13 font-semibold text-neutral-900">Tracking update</p>
+                <p className="mt-1 text-13 leading-relaxed text-neutral-600">{order.trackingNote}</p>
               </div>
             </div>
           )}
@@ -82,8 +82,8 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
 
           {/* Pricing */}
           <div className="rounded-2xl border border-neutral-100 bg-white p-6">
-            <h2 className="mb-4 text-[14px] font-semibold text-neutral-900">Summary</h2>
-            <div className="space-y-2.5 text-[13px]">
+            <h2 className="mb-4 text-sm font-semibold text-neutral-900">Summary</h2>
+            <div className="space-y-2.5 text-13">
               <div className="flex justify-between text-neutral-600">
                 <span>Subtotal</span>
                 <span>{formatPrice(order.subtotal)}</span>
@@ -105,9 +105,9 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
           <div className="rounded-2xl border border-neutral-100 bg-white p-6">
             <div className="mb-4 flex items-center gap-2">
               <MapPin size={14} strokeWidth={1.75} className="text-neutral-500" />
-              <h2 className="text-[14px] font-semibold text-neutral-900">Shipping address</h2>
+              <h2 className="text-sm font-semibold text-neutral-900">Shipping address</h2>
             </div>
-            <address className="space-y-0.5 text-[13px] not-italic text-neutral-600">
+            <address className="space-y-0.5 text-13 not-italic text-neutral-600">
               <p className="font-medium text-neutral-900">{order.shippingAddress.fullName}</p>
               <p>{order.shippingAddress.phone}</p>
               <p>{order.shippingAddress.addressLine1}</p>
@@ -121,30 +121,6 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
               <p>{order.shippingAddress.country}</p>
             </address>
           </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function OrderDetailSkeleton() {
-  return (
-    <div className="space-y-6">
-      <Skeleton className="h-4 w-20" />
-      <div className="flex justify-between">
-        <div className="space-y-2">
-          <Skeleton className="h-7 w-40" />
-          <Skeleton className="h-4 w-32" />
-        </div>
-        <Skeleton className="h-6 w-20 rounded-full" />
-      </div>
-      <div className="grid gap-6 lg:grid-cols-3">
-        <div className="space-y-3 lg:col-span-2">
-          <Skeleton className="h-48 w-full rounded-2xl" />
-        </div>
-        <div className="space-y-4">
-          <Skeleton className="h-36 w-full rounded-2xl" />
-          <Skeleton className="h-40 w-full rounded-2xl" />
         </div>
       </div>
     </div>

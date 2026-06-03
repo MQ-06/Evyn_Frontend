@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { LayoutDashboard, Users, Store, Package, Tag, LogOut } from 'lucide-react';
 import { useAuthStore } from '@/stores/auth.store';
-import { clearRoleCookie } from '@/lib/auth';
+import { clearRoleCookie, getInitials } from '@/lib/auth';
 import api from '@/lib/api';
 import toast from 'react-hot-toast';
 
@@ -21,9 +21,7 @@ export default function AdminSidebar() {
   const router = useRouter();
   const { user, logout } = useAuthStore();
 
-  const initials = user?.name
-    ? user.name.split(' ').map((n) => n[0]).join('').slice(0, 2).toUpperCase()
-    : '??';
+  const initials = user?.name ? getInitials(user.name) : '??';
 
   async function handleLogout() {
     try { await api.post('/auth/logout'); } catch { /* ignore */ }
@@ -41,19 +39,19 @@ export default function AdminSidebar() {
         {user && (
           <div className="mb-5 rounded-xl border border-neutral-200 bg-white p-4">
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-neutral-950 text-[12px] font-bold text-white">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-neutral-950 text-xs font-bold text-white">
                 {initials}
               </div>
               <div className="min-w-0">
-                <p className="truncate text-[13px] font-semibold text-neutral-900">{user.name}</p>
-                <p className="text-[11px] text-neutral-400 capitalize">{user.role}</p>
+                <p className="truncate text-13 font-semibold text-neutral-900">{user.name}</p>
+                <p className="text-11 text-neutral-400 capitalize">{user.role}</p>
               </div>
             </div>
           </div>
         )}
 
         {/* Nav label */}
-        <p className="mb-1.5 px-2 text-[10px] font-semibold uppercase tracking-widest text-neutral-400">
+        <p className="mb-1.5 px-2 text-10 font-semibold uppercase tracking-widest text-neutral-400">
           Admin panel
         </p>
 
@@ -65,7 +63,7 @@ export default function AdminSidebar() {
               <Link
                 key={href}
                 href={href}
-                className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-[13px] font-medium transition-all ${
+                className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-13 font-medium transition-all ${
                   active
                     ? 'bg-neutral-950 text-white'
                     : 'text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900'
@@ -82,7 +80,7 @@ export default function AdminSidebar() {
         <div className="mt-4 border-t border-neutral-100 pt-4">
           <button
             onClick={handleLogout}
-            className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-[13px] font-medium text-neutral-400 transition-all hover:bg-red-50 hover:text-red-500"
+            className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-13 font-medium text-neutral-400 transition-all hover:bg-red-50 hover:text-red-500"
           >
             <LogOut size={14} strokeWidth={1.75} />
             Sign out

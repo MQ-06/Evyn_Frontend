@@ -56,9 +56,9 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
           <ArrowLeft size={16} />
         </Link>
         <div>
-          <h1 className="text-[1.5rem] font-bold tracking-tight text-neutral-950">Edit product</h1>
+          <h1 className="text-2xl font-bold tracking-tight text-neutral-950">Edit product</h1>
           {product && (
-            <p className="mt-0.5 text-[13px] text-neutral-500 truncate max-w-xs">{product.name}</p>
+            <p className="mt-0.5 text-13 text-neutral-500 truncate max-w-xs">{product.name}</p>
           )}
         </div>
       </div>
@@ -86,7 +86,7 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
         />
       ) : (
         <div className="rounded-2xl border border-dashed border-neutral-200 py-20 text-center">
-          <p className="text-[14px] text-neutral-500">Product not found</p>
+          <p className="text-sm text-neutral-500">Product not found</p>
         </div>
       )}
     </div>

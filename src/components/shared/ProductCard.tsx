@@ -36,7 +36,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         {/* Out of stock overlay */}
         {!inStock && (
           <div className="absolute inset-0 flex items-center justify-center bg-white/70 backdrop-blur-[1px]">
-            <span className="rounded-full border border-neutral-200 bg-white px-3 py-1 text-[12px] font-medium text-neutral-500">
+            <span className="rounded-full border border-neutral-200 bg-white px-3 py-1 text-xs font-medium text-neutral-500">
               Out of stock
             </span>
           </div>
@@ -46,27 +46,27 @@ export default function ProductCard({ product }: ProductCardProps) {
       {/* Info */}
       <div className="flex flex-1 flex-col p-4">
         {product.category && (
-          <span className="mb-1.5 text-[11px] font-medium uppercase tracking-wider text-neutral-400">
+          <span className="mb-1.5 text-11 font-medium uppercase tracking-wider text-neutral-400">
             {product.category.name}
           </span>
         )}
 
-        <h3 className="line-clamp-1 text-[15px] font-semibold text-neutral-900 group-hover:text-neutral-700 transition-colors">
+        <h3 className="line-clamp-1 text-15 font-semibold text-neutral-900 group-hover:text-neutral-700 transition-colors">
           {product.name}
         </h3>
 
         {product.seller?.businessName && (
-          <p className="mt-0.5 text-[13px] text-neutral-400">
+          <p className="mt-0.5 text-13 text-neutral-400">
             {product.seller.businessName}
           </p>
         )}
 
         <div className="mt-auto flex items-end justify-between pt-3">
-          <span className="text-[17px] font-bold tracking-tight text-neutral-950">
+          <span className="text-17 font-bold tracking-tight text-neutral-950">
             {formatPrice(product.price)}
           </span>
           {inStock && product.stock <= 10 && (
-            <span className="text-[12px] text-amber-600">
+            <span className="text-xs text-amber-600">
               {product.stock} left
             </span>
           )}

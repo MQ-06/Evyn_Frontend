@@ -31,7 +31,7 @@ export default function ProductsClient({ page, hasMore }: ProductsClientProps) {
         <ChevronLeft size={15} />
       </button>
 
-      <span className="text-[13px] font-medium text-neutral-600">
+      <span className="text-13 font-medium text-neutral-600">
         Page {page}
       </span>
 

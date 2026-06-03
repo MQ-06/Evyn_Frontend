@@ -53,14 +53,14 @@ export default function ProductFilters({ categories }: ProductFiltersProps) {
     <aside className="flex flex-col gap-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 text-[13px] font-semibold text-neutral-700">
+        <div className="flex items-center gap-2 text-13 font-semibold text-neutral-700">
           <SlidersHorizontal size={14} strokeWidth={2} />
           Filters
         </div>
         {hasActiveFilters && (
           <button
             onClick={clearAll}
-            className="flex items-center gap-1 text-[12px] text-neutral-400 hover:text-neutral-700 transition-colors"
+            className="flex items-center gap-1 text-xs text-neutral-400 hover:text-neutral-700 transition-colors"
           >
             <X size={12} />
             Clear all
@@ -84,7 +84,7 @@ export default function ProductFilters({ categories }: ProductFiltersProps) {
                 onChange={() => update('sort', opt.value)}
                 className="accent-neutral-950"
               />
-              <span className="text-[13px] text-neutral-700">{opt.label}</span>
+              <span className="text-13 text-neutral-700">{opt.label}</span>
             </label>
           ))}
         </div>
@@ -103,7 +103,7 @@ export default function ProductFilters({ categories }: ProductFiltersProps) {
                 onChange={() => update('categoryId', '')}
                 className="accent-neutral-950"
               />
-              <span className="text-[13px] text-neutral-700">All categories</span>
+              <span className="text-13 text-neutral-700">All categories</span>
             </label>
             {categories.map((cat) => (
               <label
@@ -118,7 +118,7 @@ export default function ProductFilters({ categories }: ProductFiltersProps) {
                   onChange={() => update('categoryId', cat.id)}
                   className="accent-neutral-950"
                 />
-                <span className="text-[13px] text-neutral-700">{cat.name}</span>
+                <span className="text-13 text-neutral-700">{cat.name}</span>
               </label>
             ))}
           </div>
@@ -134,16 +134,16 @@ export default function ProductFilters({ categories }: ProductFiltersProps) {
             min={0}
             value={current.minPrice}
             onChange={(e) => update('minPrice', e.target.value)}
-            className="h-8 w-full rounded-lg border border-neutral-200 px-2.5 text-[13px] text-neutral-900 outline-none focus:border-neutral-400 focus:ring-1 focus:ring-neutral-200"
+            className="h-8 w-full rounded-lg border border-neutral-200 px-2.5 text-13 text-neutral-900 outline-none focus:border-neutral-400 focus:ring-1 focus:ring-neutral-200"
           />
-          <span className="shrink-0 text-[12px] text-neutral-400">to</span>
+          <span className="shrink-0 text-xs text-neutral-400">to</span>
           <input
             type="number"
             placeholder="Max"
             min={0}
             value={current.maxPrice}
             onChange={(e) => update('maxPrice', e.target.value)}
-            className="h-8 w-full rounded-lg border border-neutral-200 px-2.5 text-[13px] text-neutral-900 outline-none focus:border-neutral-400 focus:ring-1 focus:ring-neutral-200"
+            className="h-8 w-full rounded-lg border border-neutral-200 px-2.5 text-13 text-neutral-900 outline-none focus:border-neutral-400 focus:ring-1 focus:ring-neutral-200"
           />
         </div>
       </FilterSection>
@@ -157,7 +157,7 @@ export default function ProductFilters({ categories }: ProductFiltersProps) {
             onChange={(e) => update('inStock', e.target.checked ? 'true' : '')}
             className="accent-neutral-950"
           />
-          <span className="text-[13px] text-neutral-700">In stock only</span>
+          <span className="text-13 text-neutral-700">In stock only</span>
         </label>
       </FilterSection>
     </aside>
@@ -167,7 +167,7 @@ export default function ProductFilters({ categories }: ProductFiltersProps) {
 function FilterSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <p className="mb-2.5 text-[11px] font-semibold uppercase tracking-wider text-neutral-400">
+      <p className="mb-2.5 text-11 font-semibold uppercase tracking-wider text-neutral-400">
         {title}
       </p>
       {children}

@@ -43,8 +43,8 @@ export default function NewProductPage() {
           <ArrowLeft size={16} />
         </Link>
         <div>
-          <h1 className="text-[1.5rem] font-bold tracking-tight text-neutral-950">New product</h1>
-          <p className="mt-0.5 text-[13px] text-neutral-500">Fill in the details below to list a new product</p>
+          <h1 className="text-2xl font-bold tracking-tight text-neutral-950">New product</h1>
+          <p className="mt-0.5 text-13 text-neutral-500">Fill in the details below to list a new product</p>
         </div>
       </div>
 

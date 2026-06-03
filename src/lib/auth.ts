@@ -41,3 +41,27 @@ export function formatDate(iso: string): string {
 export function canUserAccess(user: AuthUser | null, role: RoleType): boolean {
   return user?.role === role;
 }
+
+export function greeting(): string {
+  const h = new Date().getHours();
+  if (h < 12) return 'Good morning';
+  if (h < 17) return 'Good afternoon';
+  return 'Good evening';
+}
+
+export function getTodayLabel(): string {
+  return new Date().toLocaleDateString('en-US', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+  });
+}
+
+export function getFirstName(name: string | undefined | null, fallback = 'there'): string {
+  return name?.split(' ')[0] ?? fallback;
+}
+
+const ORDER_ID_LENGTH = 8;
+export function formatOrderId(id: string): string {
+  return `#${id.slice(0, ORDER_ID_LENGTH).toUpperCase()}`;
+}

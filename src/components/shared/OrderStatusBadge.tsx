@@ -11,7 +11,7 @@ const config: Record<OrderStatusType, { label: string; className: string }> = {
 export default function OrderStatusTypeBadge({ status }: { status: OrderStatusType }) {
   const { label, className } = config[status] ?? config.pending;
   return (
-    <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-[12px] font-medium ${className}`}>
+    <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium ${className}`}>
       {label}
     </span>
   );

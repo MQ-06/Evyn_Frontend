@@ -1,8 +1,10 @@
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
+import { Package } from 'lucide-react';
 import { serverFetch, buildQuery } from '@/lib/server-api';
 import type { Product, Category } from '@/types';
 import ProductCard from '@/components/shared/ProductCard';
+import EmptyState from '@/components/ui/EmptyState';
 import ProductFilters from './ProductFilters';
 import ProductsClient from './ProductsClient';
 
@@ -54,10 +56,10 @@ export default async function ProductsPage({ searchParams }: PageProps) {
     <div className="mx-auto max-w-6xl px-5 py-10 sm:px-8 sm:py-14">
       {/* Page header */}
       <div className="mb-8">
-        <h1 className="text-[1.75rem] font-bold tracking-tight text-neutral-950">
+        <h1 className="text-heading font-bold tracking-tight text-neutral-950">
           {activeCategoryName ?? 'All products'}
         </h1>
-        <p className="mt-1 text-[14px] text-neutral-500">
+        <p className="mt-1 text-sm text-neutral-500">
           {products.length === 0
             ? 'No products found'
             : `${products.length}${hasMore ? '+' : ''} product${products.length === 1 ? '' : 's'}`}
@@ -75,7 +77,11 @@ export default async function ProductsPage({ searchParams }: PageProps) {
         {/* Product grid + pagination */}
         <div className="flex-1">
           {products.length === 0 ? (
-            <EmptyState />
+            <EmptyState
+              icon={Package}
+              title="No products found"
+              description="Try adjusting your filters"
+            />
           ) : (
             <>
               <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 xl:grid-cols-3">
@@ -92,15 +98,6 @@ export default async function ProductsPage({ searchParams }: PageProps) {
           )}
         </div>
       </div>
-    </div>
-  );
-}
-
-function EmptyState() {
-  return (
-    <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-neutral-200 py-20 text-center">
-      <p className="text-[15px] font-medium text-neutral-500">No products found</p>
-      <p className="mt-1 text-[13px] text-neutral-400">Try adjusting your filters</p>
     </div>
   );
 }

@@ -38,7 +38,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
     <div className="mx-auto max-w-6xl px-5 py-10 sm:px-8 sm:py-14">
 
       {/* Breadcrumb */}
-      <nav className="mb-8 flex items-center gap-1.5 text-[13px] text-neutral-400">
+      <nav className="mb-8 flex items-center gap-1.5 text-13 text-neutral-400">
         <Link href="/products" className="hover:text-neutral-700 transition-colors">
           Products
         </Link>
@@ -69,20 +69,20 @@ export default async function ProductDetailPage({ params }: PageProps) {
           {product.category && (
             <Link
               href={`/products?categoryId=${product.category.id}`}
-              className="mb-3 inline-block text-[12px] font-semibold uppercase tracking-wider text-neutral-400 hover:text-neutral-600 transition-colors"
+              className="mb-3 inline-block text-xs font-semibold uppercase tracking-wider text-neutral-400 hover:text-neutral-600 transition-colors"
             >
               {product.category.name}
             </Link>
           )}
 
           {/* Name */}
-          <h1 className="text-[1.75rem] font-bold leading-tight tracking-tight text-neutral-950 sm:text-3xl">
+          <h1 className="text-heading font-bold leading-tight tracking-tight text-neutral-950 sm:text-3xl">
             {product.name}
           </h1>
 
           {/* Seller */}
           {product.seller && (
-            <p className="mt-2 text-[14px] text-neutral-500">
+            <p className="mt-2 text-sm text-neutral-500">
               Sold by{' '}
               <span className="font-medium text-neutral-700">
                 {product.seller.businessName ?? product.seller.name}
@@ -96,7 +96,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
               {formatPrice(product.price)}
             </span>
             <span
-              className={`mb-1 rounded-full px-2.5 py-0.5 text-[12px] font-medium ${
+              className={`mb-1 rounded-full px-2.5 py-0.5 text-xs font-medium ${
                 inStock
                   ? 'bg-emerald-50 text-emerald-700'
                   : 'bg-red-50 text-red-600'
@@ -107,7 +107,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
           </div>
 
           {/* Shipping note */}
-          <p className="mt-2 text-[13px] text-neutral-400">
+          <p className="mt-2 text-13 text-neutral-400">
             {product.price >= 50
               ? '✓ Free shipping on this order'
               : `Add $${(50 - product.price).toFixed(2)} more for free shipping`}
@@ -123,10 +123,10 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
           {/* Description */}
           <div>
-            <p className="mb-3 text-[12px] font-semibold uppercase tracking-wider text-neutral-400">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-neutral-400">
               Description
             </p>
-            <p className="whitespace-pre-line text-[14px] leading-relaxed text-neutral-600">
+            <p className="whitespace-pre-line text-sm leading-relaxed text-neutral-600">
               {product.description}
             </p>
           </div>

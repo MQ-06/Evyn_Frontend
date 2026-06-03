@@ -40,9 +40,9 @@ export default function AdminCategoriesPage() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-[1.5rem] font-bold tracking-tight text-neutral-950">Categories</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-neutral-950">Categories</h1>
         {!isLoading && (
-          <p className="mt-1 text-[14px] text-neutral-500">
+          <p className="mt-1 text-sm text-neutral-500">
             {categories?.length ?? 0} categor{categories?.length !== 1 ? 'ies' : 'y'}
           </p>
         )}
@@ -50,7 +50,7 @@ export default function AdminCategoriesPage() {
 
       {/* Create form */}
       <div className="mb-6 rounded-2xl border border-neutral-100 bg-white p-6">
-        <h2 className="mb-4 text-[14px] font-semibold text-neutral-900">Add category</h2>
+        <h2 className="mb-4 text-sm font-semibold text-neutral-900">Add category</h2>
         <form onSubmit={handleCreate} className="flex gap-3">
           <input
             value={name}
@@ -61,7 +61,7 @@ export default function AdminCategoriesPage() {
           <button
             type="submit"
             disabled={create.isPending || !name.trim()}
-            className="flex h-10 items-center gap-1.5 rounded-lg bg-neutral-950 px-4 text-[13px] font-medium text-white hover:bg-neutral-800 disabled:cursor-not-allowed disabled:bg-neutral-300 transition-colors"
+            className="flex h-10 items-center gap-1.5 rounded-lg bg-neutral-950 px-4 text-13 font-medium text-white hover:bg-neutral-800 disabled:cursor-not-allowed disabled:bg-neutral-300 transition-colors"
           >
             <Plus size={14} />
             Add
@@ -77,8 +77,8 @@ export default function AdminCategoriesPage() {
       ) : !categories?.length ? (
         <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-neutral-200 py-16 text-center">
           <Tag size={32} strokeWidth={1.25} className="mb-3 text-neutral-300" />
-          <p className="text-[14px] font-medium text-neutral-500">No categories yet</p>
-          <p className="mt-1 text-[13px] text-neutral-400">Add your first category above</p>
+          <p className="text-sm font-medium text-neutral-500">No categories yet</p>
+          <p className="mt-1 text-13 text-neutral-400">Add your first category above</p>
         </div>
       ) : (
         <div className="overflow-hidden rounded-2xl border border-neutral-100 bg-white">
@@ -86,8 +86,8 @@ export default function AdminCategoriesPage() {
             {categories.map((cat) => (
               <div key={cat.id} className="flex items-center justify-between px-5 py-3.5">
                 <div>
-                  <p className="text-[14px] font-medium text-neutral-900">{cat.name}</p>
-                  <p className="text-[12px] text-neutral-400">/{cat.slug}</p>
+                  <p className="text-sm font-medium text-neutral-900">{cat.name}</p>
+                  <p className="text-xs text-neutral-400">/{cat.slug}</p>
                 </div>
               </div>
             ))}

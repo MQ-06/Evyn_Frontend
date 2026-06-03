@@ -1,21 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { Store, Users, Package, TrendingUp, ArrowRight, type LucideIcon } from 'lucide-react';
+import { Store, Users, Package, TrendingUp, ArrowRight } from 'lucide-react';
 import { useAdminSellers, useAdminBuyers, useAdminProducts } from '@/hooks/useAdmin';
 import { useAuthStore } from '@/stores/auth.store';
-import { formatPrice } from '@/lib/auth';
-
-function greeting() {
-  const h = new Date().getHours();
-  if (h < 12) return 'Good morning';
-  if (h < 17) return 'Good afternoon';
-  return 'Good evening';
-}
-
-const dateLabel = new Date().toLocaleDateString('en-US', {
-  weekday: 'long', month: 'long', day: 'numeric',
-});
+import { formatPrice, greeting, getTodayLabel, getFirstName, getInitials } from '@/lib/auth';
+import StatCard from '@/components/shared/StatCard';
 
 export default function AdminDashboardPage() {
   const user     = useAuthStore((s) => s.user);
@@ -23,7 +13,7 @@ export default function AdminDashboardPage() {
   const { data: buyers }   = useAdminBuyers();
   const { data: products } = useAdminProducts();
 
-  const firstName = user?.name?.split(' ')[0] ?? 'Admin';
+  const firstName = getFirstName(user?.name, 'Admin');
 
   const activeSellers  = sellers?.filter((s) => s.isActive).length ?? 0;
   const pendingSellers = sellers?.filter((s) => !s.isActive).length ?? 0;
@@ -34,11 +24,11 @@ export default function AdminDashboardPage() {
 
       {/* Header */}
       <div className="border-b border-neutral-100 pb-6">
-        <p className="mb-1 text-[13px] text-neutral-400">{dateLabel}</p>
-        <h1 className="text-[1.75rem] font-bold tracking-tight text-neutral-950">
+        <p className="mb-1 text-13 text-neutral-400">{getTodayLabel()}</p>
+        <h1 className="text-heading font-bold tracking-tight text-neutral-950">
           {greeting()}, {firstName}.
         </h1>
-        <p className="mt-1 text-[13px] text-neutral-500">Platform overview</p>
+        <p className="mt-1 text-13 text-neutral-500">Platform overview</p>
       </div>
 
       {/* Stat cards */}
@@ -83,16 +73,16 @@ export default function AdminDashboardPage() {
         <div className="rounded-2xl border border-amber-100 bg-amber-50 px-5 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-[13px] font-semibold text-amber-800">
+              <p className="text-13 font-semibold text-amber-800">
                 {pendingSellers} inactive seller{pendingSellers !== 1 ? 's' : ''}
               </p>
-              <p className="mt-0.5 text-[12px] text-amber-600">
+              <p className="mt-0.5 text-xs text-amber-600">
                 Review and activate pending seller accounts.
               </p>
             </div>
             <Link
               href="/admin/sellers"
-              className="flex items-center gap-1 rounded-lg bg-amber-100 px-3 py-1.5 text-[12px] font-semibold text-amber-800 transition-colors hover:bg-amber-200"
+              className="flex items-center gap-1 rounded-lg bg-amber-100 px-3 py-1.5 text-xs font-semibold text-amber-800 transition-colors hover:bg-amber-200"
             >
               Review <ArrowRight size={12} />
             </Link>
@@ -103,10 +93,10 @@ export default function AdminDashboardPage() {
       {/* Recent sellers */}
       <div className="rounded-2xl border border-neutral-100 bg-white">
         <div className="flex items-center justify-between border-b border-neutral-100 px-5 py-4">
-          <h2 className="text-[14px] font-semibold text-neutral-900">Sellers</h2>
+          <h2 className="text-sm font-semibold text-neutral-900">Sellers</h2>
           <Link
             href="/admin/sellers"
-            className="flex items-center gap-1 text-[12px] text-neutral-400 transition-colors hover:text-neutral-700"
+            className="flex items-center gap-1 text-xs text-neutral-400 transition-colors hover:text-neutral-700"
           >
             View all <ArrowRight size={12} />
           </Link>
@@ -117,21 +107,21 @@ export default function AdminDashboardPage() {
             {sellers.slice(0, 6).map((seller) => (
               <div key={seller.id} className="flex items-center justify-between px-5 py-3.5">
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-[11px] font-bold text-neutral-600">
-                    {seller.name.slice(0, 2).toUpperCase()}
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-11 font-bold text-neutral-600">
+                    {getInitials(seller.name)}
                   </div>
                   <div className="min-w-0">
-                    <p className="truncate text-[13px] font-medium text-neutral-900">{seller.name}</p>
-                    <p className="truncate text-[12px] text-neutral-400">
+                    <p className="truncate text-13 font-medium text-neutral-900">{seller.name}</p>
+                    <p className="truncate text-xs text-neutral-400">
                       {seller.businessName ?? seller.email}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <span className="text-[12px] text-neutral-400">
+                  <span className="text-xs text-neutral-400">
                     {seller.productCount ?? 0} products
                   </span>
-                  <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${
+                  <span className={`rounded-full px-2 py-0.5 text-11 font-medium ${
                     seller.isActive
                       ? 'bg-emerald-50 text-emerald-700'
                       : 'bg-neutral-100 text-neutral-500'
@@ -143,7 +133,7 @@ export default function AdminDashboardPage() {
             ))}
           </div>
         ) : (
-          <p className="px-5 py-8 text-center text-[13px] text-neutral-400">No sellers yet.</p>
+          <p className="px-5 py-8 text-center text-13 text-neutral-400">No sellers yet.</p>
         )}
       </div>
 
@@ -161,7 +151,7 @@ export default function AdminDashboardPage() {
           >
             <div className="flex items-center gap-2.5">
               <Icon size={14} strokeWidth={1.75} className="text-neutral-500" />
-              <span className="text-[13px] font-medium text-neutral-700">{label}</span>
+              <span className="text-13 font-medium text-neutral-700">{label}</span>
             </div>
             <ArrowRight size={13} className="text-neutral-300" />
           </Link>
@@ -169,39 +159,5 @@ export default function AdminDashboardPage() {
       </div>
 
     </div>
-  );
-}
-
-type CardColor = 'blue' | 'amber' | 'emerald' | 'sky';
-const colorMap: Record<CardColor, { bg: string; icon: string }> = {
-  blue:    { bg: 'bg-blue-50',    icon: 'text-blue-500' },
-  amber:   { bg: 'bg-amber-50',   icon: 'text-amber-500' },
-  emerald: { bg: 'bg-emerald-50', icon: 'text-emerald-600' },
-  sky:     { bg: 'bg-sky-50',     icon: 'text-sky-500' },
-};
-
-function StatCard({
-  href, label, value, sub, icon: Icon, color = 'blue', isText = false,
-}: {
-  href: string; label: string; value: number | string; sub: string;
-  icon: LucideIcon; color?: CardColor; isText?: boolean;
-}) {
-  const c = colorMap[color];
-  return (
-    <Link
-      href={href}
-      className="group flex flex-col rounded-2xl border border-neutral-100 bg-white p-5 transition-all hover:border-neutral-200 hover:shadow-sm"
-    >
-      <div className="mb-4 flex items-center justify-between">
-        <p className="text-[11px] font-semibold uppercase tracking-wider text-neutral-400">{label}</p>
-        <div className={`flex h-7 w-7 items-center justify-center rounded-lg ${c.bg}`}>
-          <Icon size={13} strokeWidth={1.75} className={c.icon} />
-        </div>
-      </div>
-      <p className={`font-bold leading-none tracking-tight text-neutral-950 ${isText ? 'text-[1.4rem]' : 'text-[2.25rem]'}`}>
-        {value}
-      </p>
-      <p className="mt-2 text-[12px] text-neutral-400">{sub}</p>
-    </Link>
   );
 }

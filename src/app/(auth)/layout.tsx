@@ -36,7 +36,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         />
 
         {/* Logo */}
-        <Link href="/" className="relative text-[17px] font-bold tracking-tight text-white">
+        <Link href="/" className="relative text-17 font-bold tracking-tight text-white">
           Evyn
         </Link>
 
@@ -46,7 +46,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
             <p className="text-[1.6rem] font-bold leading-snug tracking-tight text-white">
               Where independent sellers meet their customers.
             </p>
-            <p className="mt-4 text-[15px] leading-relaxed text-neutral-400">
+            <p className="mt-4 text-15 leading-relaxed text-neutral-400">
               A curated marketplace built for verified sellers and discerning buyers.
             </p>
           </blockquote>
@@ -57,14 +57,14 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
                 <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-brand-600/20">
                   <Icon size={13} className="text-brand-400" strokeWidth={2} />
                 </div>
-                <span className="text-[13px] leading-snug text-neutral-400">{text}</span>
+                <span className="text-13 leading-snug text-neutral-400">{text}</span>
               </li>
             ))}
           </ul>
         </div>
 
         {/* Bottom caption */}
-        <p className="relative text-[12px] text-neutral-600">
+        <p className="relative text-xs text-neutral-600">
           © {new Date().getFullYear()} Evyn. All rights reserved.
         </p>
       </div>
@@ -74,7 +74,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 
         {/* Mobile top bar */}
         <div className="flex h-14 items-center border-b border-neutral-100 px-5 lg:hidden">
-          <Link href="/" className="text-[15px] font-semibold tracking-tight text-neutral-950">
+          <Link href="/" className="text-15 font-semibold tracking-tight text-neutral-950">
             Evyn
           </Link>
         </div>
